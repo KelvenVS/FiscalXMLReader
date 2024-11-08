@@ -1,6 +1,9 @@
 package fp.flamapar.xmlread;
 
-import fp.flamapar.xmlread.model.*;
+import fp.flamapar.xmlread.model.produto.ICMS00;
+import fp.flamapar.xmlread.model.produto.Prod;
+import fp.flamapar.xmlread.model.nota.Det;
+import fp.flamapar.xmlread.model.nota.NfeProc;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;

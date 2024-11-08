@@ -1,5 +1,6 @@
-package fp.flamapar.xmlread.model;
+package fp.flamapar.xmlread.model.nota;
 
+import fp.flamapar.xmlread.model.produto.ICMS00;
 import jakarta.xml.bind.annotation.XmlElement;
 
 public class ICMS {

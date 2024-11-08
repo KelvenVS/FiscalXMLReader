@@ -1,5 +1,6 @@
-package fp.flamapar.xmlread.model;
+package fp.flamapar.xmlread.model.nota;
 
+import fp.flamapar.xmlread.model.produto.Prod;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlAttribute;
 

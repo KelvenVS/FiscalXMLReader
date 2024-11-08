@@ -1,4 +1,4 @@
-package fp.flamapar.xmlread.model;
+package fp.flamapar.xmlread.model.produto;
 
 import jakarta.xml.bind.annotation.XmlElement;
 
