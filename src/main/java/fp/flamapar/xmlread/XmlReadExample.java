@@ -28,9 +28,21 @@ public class XmlReadExample {
             if (nfeProc.getNfe() != null && nfeProc.getNfe().getInfNFe() != null) {
                 for (Det det : nfeProc.getNfe().getInfNFe().getDet()) {
                     Prod prod = det.getProd();
+                    ICMS00 icms00 = det.getImposto().getIcms().getIcms00();
+                    
+                    Double vProd = prod.getvProd();
+                    
                     System.out.println("Item Número: " + det.getNItem());
-                    System.out.println("Código do Produto: " + (prod != null ? prod.getCProd() : "N/A"));
+                    
+                    System.out.println("Código do Produto: " + (prod != null ? prod.getCProd() : "N/A") 
+                            + " Código de Barras: " + (prod != null ? prod.getcEAN() : "N/A"));
+                    
+                    System.out.println("CST: " + (prod != null ? icms00.getCst(): "N/A"));
+                    
                     System.out.println("Nome do Produto: " + (prod != null ? prod.getXProd() : "N/A"));
+                    
+                    System.out.println(vProd);
+                    
                     System.out.println("--------------------------------");
                 }
             } else {

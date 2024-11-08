@@ -6,6 +6,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 public class Det {
     private String nItem;
     private Prod prod;
+    private Imposto imposto;
 
     @XmlAttribute(name = "nItem")
     public String getNItem() {
@@ -24,4 +25,15 @@ public class Det {
     public void setProd(Prod prod) {
         this.prod = prod;
     }
+    
+    @XmlElement(name = "imposto", namespace = "http://www.portalfiscal.inf.br/nfe")
+    public Imposto getImposto() {
+        return imposto;
+    }
+
+    public void setImposto(Imposto imposto) {
+        this.imposto = imposto;
+    }
+    
+    
 }
