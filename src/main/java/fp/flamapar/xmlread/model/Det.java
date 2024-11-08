@@ -1,0 +1,27 @@
+package fp.flamapar.xmlread.model;
+
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
+
+public class Det {
+    private String nItem;
+    private Prod prod;
+
+    @XmlAttribute(name = "nItem")
+    public String getNItem() {
+        return nItem;
+    }
+
+    public void setNItem(String nItem) {
+        this.nItem = nItem;
+    }
+
+    @XmlElement(name = "prod", namespace = "http://www.portalfiscal.inf.br/nfe")
+    public Prod getProd() {
+        return prod;
+    }
+
+    public void setProd(Prod prod) {
+        this.prod = prod;
+    }
+}
