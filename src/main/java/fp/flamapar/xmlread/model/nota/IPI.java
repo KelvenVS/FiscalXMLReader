@@ -8,6 +8,12 @@ public class IPI {
     
     @XmlElement(name = "IPITrib", namespace = "http://www.portalfiscal.inf.br/nfe")
     public IPITrib getIpitrib() {
+        // Retorna uma instância padrão de IPITrib se ipitrib for nulo
+        if (ipitrib == null) {
+            IPITrib defaultIpiTrib = new IPITrib();
+            defaultIpiTrib.setpIPI("N/A");  // Define "N/A" como valor padrão
+            return defaultIpiTrib;
+        }
         return ipitrib;
     }
 

@@ -34,17 +34,24 @@ public class XmlReadExample {
                     Prod prod = det.getProd();
                     ICMS00 icms00 = det.getImposto().getIcms().getIcms00();
                     IPITrib ipitrib = det.getImposto().getIpi().getIpitrib();
+                    
+                    
                     Double vProd = prod.getvProd();
+                    String cstA = (icms00 != null ? icms00.getOrig() : "N/A" );
+                    String cstB = (icms00 != null ? icms00.getCst() : "N/A" );
+                    String icms = (icms00 != null ? icms00.getpICMS() : "N/A" );
                     
                     System.out.println("Item Número: " + det.getNItem());
                     System.out.println("Código do Fabricante: " + prod.getCProd() 
                             + " Código de Barras: " + prod.getcEAN());
-                    System.out.println("CSTa:" + icms00.getOrig() + " CSTb:" + icms00.getCst() 
+                    System.out.println("CSTa:" + cstA + " CSTb:" + cstB 
                     + " NCM:" + prod.getNCM()
-                    + " IPI:" + (ipitrib != null ? ipitrib.getpIPI() : "N/A"));
+                    + " ICMS:" + icms
+                    + " IPI:" + ipitrib.getpIPI());
                     
                     System.out.println("Nome do Produto: " + prod.getXProd());
-                    System.out.println("Preço Unit: " + vProd);
+                    System.out.println("Preço Unit: " + vProd 
+                            + " Unidade:" + prod.getuCom());
                     System.out.println("--------------------------------");
                 }
             } else {
