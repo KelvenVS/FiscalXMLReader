@@ -2,7 +2,7 @@ package fp.flamapar.xmlread.model.produto;
 
 import jakarta.xml.bind.annotation.XmlElement;
 
-public class ICMS00 {
+public class ICMS00 implements ICMSBase {
     private String orig;
     private String cst;
     private String pICMS;

@@ -1,5 +1,6 @@
 package fp.flamapar.xmlread.model.nota;
 
+import fp.flamapar.xmlread.model.produto.ICMSBase;
 import fp.flamapar.xmlread.model.produto.ICMS00;
 import fp.flamapar.xmlread.model.produto.ICMS10;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -24,5 +25,9 @@ public class ICMS {
 
     public void setIcms10(ICMS10 icms10) {
         this.icms10 = icms10;
+    }
+    
+    public ICMSBase getICMSType() {
+    return icms00 != null ? icms00 : icms10;
     }
 }

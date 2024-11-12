@@ -1,7 +1,6 @@
 package fp.flamapar.xmlread;
 
-import fp.flamapar.xmlread.model.produto.ICMS00;
-import fp.flamapar.xmlread.model.produto.ICMS10;
+import fp.flamapar.xmlread.model.produto.ICMSBase;
 import fp.flamapar.xmlread.model.produto.Prod;
 import fp.flamapar.xmlread.model.nota.Det;
 import fp.flamapar.xmlread.model.nota.NfeProc;
@@ -33,28 +32,18 @@ public class XmlReadExample {
             // Acessar a lista de itens (det) dentro de infNFe
             if (nfeProc.getNfe() != null && nfeProc.getNfe().getInfNFe() != null) {
                 for (Det det : nfeProc.getNfe().getInfNFe().getDet()) {
+                    //Object
                     Prod prod = det.getProd();
-                    ICMS00 icms00 = det.getImposto().getIcms().getIcms00();
-                    ICMS10 icms10 = det.getImposto().getIcms().getIcms10();
-                    
-                    // Adicione outras verificações conforme necessário
-                    Object objIcms = (icms00 != null) ? icms00 : icms10;  
-                    
                     IPITrib ipitrib = det.getImposto().getIpi().getIpitrib();
-                    
-                    
-                    //Casting de Objetos
+                    ICMSBase icmsBase = det.getImposto().getIcms().getICMSType();
+
+                    //Var
+                    String cstA = icmsBase != null ? icmsBase.getOrig() : "N/A";
+                    String cstB = icmsBase != null ? icmsBase.getCst() : "N/A";
+                    String icms = icmsBase != null ? icmsBase.getpICMS() : "N/A";
                     Double vProd = prod.getvProd();
-                    String cstA = (objIcms instanceof ICMS00) ? ((ICMS00) objIcms).getOrig() :
-                                  (objIcms instanceof ICMS10) ? ((ICMS10) objIcms).getOrig() : "N/A";
-
-                    String cstB = (objIcms instanceof ICMS00) ? ((ICMS00) objIcms).getCst() :
-                                  (objIcms instanceof ICMS10) ? ((ICMS10) objIcms).getCst() : "N/A";
-
-                    String icms = (objIcms instanceof ICMS00) ? ((ICMS00) objIcms).getpICMS() :
-                                  (objIcms instanceof ICMS10) ? ((ICMS10) objIcms).getpICMS() : "N/A";
                     
-                    
+                    //Prints
                     System.out.println("Item Número: " + det.getNItem());
                     System.out.println("Código do Fabricante: " + prod.getCProd() 
                     + " Código de Barras: " + prod.getcEAN());
@@ -65,7 +54,7 @@ public class XmlReadExample {
                     
                     System.out.println("Nome do Produto: " + prod.getXProd());
                     System.out.println("Preço Unit: " + vProd 
-                            + " Unidade:" + prod.getuCom());
+                    + " Unidade:" + prod.getuCom());
                     System.out.println("--------------------------------------------------------");
                 }
             } else {
