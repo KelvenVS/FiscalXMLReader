@@ -4,6 +4,7 @@ import fp.flamapar.xmlread.model.produto.ICMS00;
 import fp.flamapar.xmlread.model.produto.Prod;
 import fp.flamapar.xmlread.model.nota.Det;
 import fp.flamapar.xmlread.model.nota.NfeProc;
+import fp.flamapar.xmlread.model.produto.IPITrib;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -32,20 +33,18 @@ public class XmlReadExample {
                 for (Det det : nfeProc.getNfe().getInfNFe().getDet()) {
                     Prod prod = det.getProd();
                     ICMS00 icms00 = det.getImposto().getIcms().getIcms00();
-                    
+                    IPITrib ipitrib = det.getImposto().getIpi().getIpitrib();
                     Double vProd = prod.getvProd();
                     
                     System.out.println("Item Número: " + det.getNItem());
+                    System.out.println("Código do Fabricante: " + prod.getCProd() 
+                            + " Código de Barras: " + prod.getcEAN());
+                    System.out.println("CSTa:" + icms00.getOrig() + " CSTb:" + icms00.getCst() 
+                    + " NCM:" + prod.getNCM()
+                    + " IPI:" + (ipitrib != null ? ipitrib.getpIPI() : "N/A"));
                     
-                    System.out.println("Código do Produto: " + (prod != null ? prod.getCProd() : "N/A") 
-                            + " Código de Barras: " + (prod != null ? prod.getcEAN() : "N/A"));
-                    
-                    System.out.println("CST: " + (prod != null ? icms00.getCst(): "N/A"));
-                    
-                    System.out.println("Nome do Produto: " + (prod != null ? prod.getXProd() : "N/A"));
-                    
-                    System.out.println(vProd);
-                    
+                    System.out.println("Nome do Produto: " + prod.getXProd());
+                    System.out.println("Preço Unit: " + vProd);
                     System.out.println("--------------------------------");
                 }
             } else {

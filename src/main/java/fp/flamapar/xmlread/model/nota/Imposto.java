@@ -4,6 +4,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 public class Imposto {
     private ICMS icms;
+    private IPI ipi;
 
     @XmlElement(name = "ICMS", namespace = "http://www.portalfiscal.inf.br/nfe")
     public ICMS getIcms() {
@@ -13,4 +14,15 @@ public class Imposto {
     public void setIcms(ICMS icms) {
         this.icms = icms;
     }
+    
+    @XmlElement(name = "IPI", namespace = "http://www.portalfiscal.inf.br/nfe")
+    public IPI getIpi() {
+        return ipi;
+    }
+
+    public void setIpi(IPI ipi) {
+        this.ipi = ipi;
+    }
+    
+    
 }
