@@ -16,7 +16,7 @@ public class ProductViewer extends JFrame {
         
         // Configurações da janela principal
         setTitle("Visualizador de Produtos");
-        setSize(800, 300);
+        setSize(800, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -34,8 +34,10 @@ public class ProductViewer extends JFrame {
         productList.addListSelectionListener(e -> showProductDetails(productList.getSelectedValue()));
         mainPanel.add(new JScrollPane(productList), BorderLayout.NORTH);
 
-        // Painel de detalhes
-        JPanel detailsPanel = new JPanel(new GridLayout(6, 2));
+        // Painel de detalhes com borda e layout ajustado
+        JPanel detailsPanel = new JPanel(new GridLayout(6, 2, 10, 10)); // hgap e vgap para espaçamento
+        detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // margem ao redor do painel
+
         labelNome = new JLabel("Nome: ");
         labelCodigo = new JLabel("Código: ");
         labelCodigoEAN = new JLabel("Código EAN: ");
@@ -43,12 +45,12 @@ public class ProductViewer extends JFrame {
         labelPrecoUnit = new JLabel("Preço Unitário: ");
         labelTotal = new JLabel("Total com Impostos: ");
         
-        textNome = new JTextArea();
-        textCodigo = new JTextArea();
-        textCodigoEAN = new JTextArea();
-        textNCM = new JTextArea();
-        textPrecoUnit = new JTextArea();
-        textTotal = new JTextArea();
+        textNome = createTextArea();
+        textCodigo = createTextArea();
+        textCodigoEAN = createTextArea();
+        textNCM = createTextArea();
+        textPrecoUnit = createTextArea();
+        textTotal = createTextArea();
         
 
         detailsPanel.add(labelNome);
@@ -71,6 +73,18 @@ public class ProductViewer extends JFrame {
         detailsPanel.add(textTotal);
         
         mainPanel.add(detailsPanel, BorderLayout.CENTER);
+    }
+    
+    // Método auxiliar para criar JTextArea com margens internas e configuração de tamanho
+    private JTextArea createTextArea() {
+        JTextArea textArea = new JTextArea();
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setEditable(true);
+        textArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // margem interna
+        textArea.setBackground(new Color(255, 255, 255)); // cor de fundo para diferenciar
+        textArea.setPreferredSize(new Dimension(200, 25)); // altura mínima para uniformidade
+        return textArea;
     }
     
     // Atualiza o Produto ao clicar
