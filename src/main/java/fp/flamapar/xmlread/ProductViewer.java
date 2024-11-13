@@ -16,74 +16,86 @@ public class ProductViewer extends JFrame {
         
         // Configurações da janela principal
         setTitle("Visualizador de Produtos");
-        setSize(800, 400);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Painel principal
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        // Define o layout principal como GridBagLayout
+        JPanel mainPanel = new JPanel(new GridBagLayout());
         add(mainPanel);
-
-        // Lista de produtos
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        // Carrega a lista de produtos
         XmlReadExample xmlReadExample = new XmlReadExample();
         List<ProdutoDetalhes> produtos = xmlReadExample.loadProdutos();
-        
-        // Converte a lista para um array e cria a JList
+
+        // Configura a JList de produtos
         productList = new JList<>(produtos.toArray(new ProdutoDetalhes[0]));
         productList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         productList.addListSelectionListener(e -> showProductDetails(productList.getSelectedValue()));
-        mainPanel.add(new JScrollPane(productList), BorderLayout.NORTH);
-
-        // Painel de detalhes com borda e layout ajustado
-        JPanel detailsPanel = new JPanel(new GridLayout(6, 2, 10, 5)); // hgap e vgap para espaçamento
-        detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // margem ao redor do painel
         
+        // Adiciona a lista ao painel principal com rolagem, ocupando toda a largura
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.weightx = 1;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        mainPanel.add(new JScrollPane(productList), gbc);
+
+        // Define o layout para os detalhes do produto
         labelNome = new JLabel("Nome: ");
         labelCodigo = new JLabel("Código: ");
         labelCodigoEAN = new JLabel("Código EAN: ");
         labelNCM = new JLabel("NCM: ");
         labelPrecoUnit = new JLabel("Preço Unitário: ");
         labelTotal = new JLabel("Total com Impostos: ");
-        
+
         textNome = createTextArea();
         textCodigo = createTextArea();
         textCodigoEAN = createTextArea();
         textNCM = createTextArea();
         textPrecoUnit = createTextArea();
         textTotal = createTextArea();
-        
 
-        detailsPanel.add(labelNome);
-        detailsPanel.add(textNome);
-        
-    
-        detailsPanel.add(labelCodigo);
-        detailsPanel.add(textCodigo);
+        // Adiciona os rótulos e campos de texto no painel com GridBagLayout
+        addLabelAndField(mainPanel, gbc, labelNome, textNome, 1);
+        addLabelAndField(mainPanel, gbc, labelCodigo, textCodigo, 2);
+        addLabelAndField(mainPanel, gbc, labelCodigoEAN, textCodigoEAN, 3);
+        addLabelAndField(mainPanel, gbc, labelNCM, textNCM, 4);
+        addLabelAndField(mainPanel, gbc, labelPrecoUnit, textPrecoUnit, 5);
+        addLabelAndField(mainPanel, gbc, labelTotal, textTotal, 6);
+    }
 
-        detailsPanel.add(labelCodigoEAN);
-        detailsPanel.add(textCodigoEAN);
-        
-        detailsPanel.add(labelNCM);
-        detailsPanel.add(textNCM);
-        
-        detailsPanel.add(labelPrecoUnit);      
-        detailsPanel.add(textPrecoUnit);
-        
-        detailsPanel.add(labelTotal);
-        detailsPanel.add(textTotal);
-        
-        mainPanel.add(detailsPanel, BorderLayout.CENTER);
+    // Método auxiliar para adicionar rótulos e campos de texto no GridBagLayout
+    private void addLabelAndField(JPanel panel, GridBagConstraints gbc, JLabel label, JTextArea textArea, int row) {
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 10, 5, 10);
+
+        // Adiciona o rótulo
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.1;
+        panel.add(label, gbc);
+
+        // Adiciona o campo de texto
+        gbc.gridx = 1;
+        gbc.weightx = 0.9;
+        panel.add(textArea, gbc);
     }
 
     // Método auxiliar para criar JTextArea com margens internas e configuração de tamanho
     private JTextArea createTextArea() {
         JTextArea textArea = new JTextArea();
-        textArea.setLineWrap(false);
+        textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
-        textArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // margem interna
-        textArea.setBackground(new Color(255, 255, 255)); // cor de fundo para diferenciar
-        textArea.setPreferredSize(new Dimension(200, 25)); // altura mínima para uniformidade
+        textArea.setBorder(BorderFactory.createEmptyBorder(5,20, 5, 5));
+        textArea.setBackground(new Color(255, 255, 255));
+        //textArea.setPreferredSize(new Dimension(50, 25));
         return textArea;
     }
     
@@ -98,6 +110,7 @@ public class ProductViewer extends JFrame {
             textTotal.setText("" + produto.getTotalComImpostos());
         }
     }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             ProductViewer viewer = new ProductViewer();
