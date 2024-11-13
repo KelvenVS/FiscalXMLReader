@@ -1,19 +1,25 @@
 package fp.flamapar.xmlread;
 
+import fp.flamapar.xmlread.model.ProdutoDetalhes;
 import fp.flamapar.xmlread.model.produto.ICMSBase;
 import fp.flamapar.xmlread.model.produto.Prod;
 import fp.flamapar.xmlread.model.nota.Det;
 import fp.flamapar.xmlread.model.nota.NfeProc;
 import fp.flamapar.xmlread.model.produto.IPITrib;
+
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
+
 import java.io.File;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class XmlReadExample {
-    public static void main(String[] args) {
+    public List<ProdutoDetalhes> loadProdutos() {
+        List<ProdutoDetalhes> produtos = new ArrayList<>();
         try {
             // Configurar JAXB para a classe raiz NfeProc
             JAXBContext context = JAXBContext.newInstance(NfeProc.class);
@@ -23,7 +29,7 @@ public class XmlReadExample {
             URL resource = XmlReadExample.class.getClassLoader().getResource("nfe.xml");
             if (resource == null) {
                 System.out.println("Arquivo XML não encontrado.");
-                return;
+                return produtos;
             }
 
             File file = new File(resource.getFile());
@@ -59,30 +65,27 @@ public class XmlReadExample {
                     Double pSTsistema = (vICMSst/vUnCom)*100;
                     Double pSTprod = (vICMSst/(vProdNF))*100;
                     
-                    //Prints
-                    System.out.println("Item Número: " + det.getNItem()
-                        + "\nCódigo do Fabricante: " + prod.getCProd()
-                            + " Código de Barras: " + prod.getcEAN()
-                        + "\nCSTa:" + cstA + " CSTb:" + cstB 
-                            + " NCM:" + prod.getNCM()
-                            + " % ICMS:" + icms
-                            + " % IPI:" + ipi
-                            + " MVA:" + mva
-                        + "\nNome do Produto: " + prod.getXProd()
-                        + "\nPreço Unit: " + vUnCom 
-                            + " Unidade:" + prod.getuCom());
-                    System.out.println("\nValor do produto na nota (vUnCom + vIPI + vST):" + df.format(vTotalProd)
-                        + "\nIcms Próprio:" + df.format(vICMSproprio)
-                        + " Base de Cálculo ICMS-ST:" + df.format(baseICMSst)
-                        + "\n% ST Sistema:" + df.format(pSTsistema)
-                        + " % ST:" + df.format(pSTprod)
-                        + "\n--------------------------------------------------------");
-                }
-            } else {
-                System.out.println("Nenhum item encontrado na nota ou estrutura 'infNFe' está vazia.");
-            }
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-    }
-}
+                    
+                    ProdutoDetalhes produtoDetalhes = new ProdutoDetalhes(
+                                                prod.getXProd(),
+                                                prod.getCProd(),
+                                                prod.getcEAN(),
+                                                prod.getNCM(),
+                                                vUnCom,
+                                                vTotalProd
+                                        );
+                                        produtos.add(produtoDetalhes);
+                                    }
+                                }
+                            } catch (JAXBException e) {
+                                e.printStackTrace();
+                            }
+                            return produtos;
+                        }
+
+                        private Double calculateTotalWithTaxes(Prod prod) {
+                            // Implementação simplificada para calcular o total com impostos
+                            return prod.getvUnCom() + 10.0; // Supondo um valor fictício de imposto
+                        }
+                    }
+                    
