@@ -40,22 +40,27 @@ public class XmlReadExample {
                     //Var
                     String cstA = icmsBase != null ? icmsBase.getOrig() : "N/A";
                     String cstB = icmsBase != null ? icmsBase.getCst() : "N/A";
-                    String icms = icmsBase != null ? icmsBase.getpICMS() : "N/A";
+                    
+                    Double icms = icmsBase != null ? icmsBase.getpICMS() : 0.0;
+                    Double mva = icmsBase != null ? icmsBase.getpMVAST() : 0.0;
                     Double vProd = prod.getvProd();
+                    Double ipi = ipitrib.getpIPI();
+                    
+                    //Cálculos
                     
                     //Prints
-                    System.out.println("Item Número: " + det.getNItem());
-                    System.out.println("Código do Fabricante: " + prod.getCProd() 
-                    + " Código de Barras: " + prod.getcEAN());
-                    System.out.println("CSTa:" + cstA + " CSTb:" + cstB 
-                    + " NCM:" + prod.getNCM()
-                    + " ICMS:" + icms
-                    + " IPI:" + ipitrib.getpIPI());
-                    
-                    System.out.println("Nome do Produto: " + prod.getXProd());
-                    System.out.println("Preço Unit: " + vProd 
-                    + " Unidade:" + prod.getuCom());
-                    System.out.println("--------------------------------------------------------");
+                    System.out.println("Item Número: " + det.getNItem()
+                        + "\nCódigo do Fabricante: " + prod.getCProd()
+                            + " Código de Barras: " + prod.getcEAN()
+                        + "\nCSTa:" + cstA + " CSTb:" + cstB 
+                            + " NCM:" + prod.getNCM()
+                            + " ICMS:" + icms
+                            + " IPI:" + ipi
+                            + " MVA:" + mva
+                        + "\nNome do Produto: " + prod.getXProd()
+                        + "\nPreço Unit: " + vProd 
+                            + " Unidade:" + prod.getuCom()
+                        + "\n--------------------------------------------------------");
                 }
             } else {
                 System.out.println("Nenhum item encontrado na nota ou estrutura 'infNFe' está vazia.");

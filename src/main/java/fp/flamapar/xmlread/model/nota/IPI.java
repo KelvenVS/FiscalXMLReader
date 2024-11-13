@@ -11,7 +11,7 @@ public class IPI {
         // Retorna uma instância padrão de IPITrib se ipitrib for nulo
         if (ipitrib == null) {
             IPITrib defaultIpiTrib = new IPITrib();
-            defaultIpiTrib.setpIPI("N/A");  // Define "N/A" como valor padrão
+            defaultIpiTrib.setpIPI(0.0);
             return defaultIpiTrib;
         }
         return ipitrib;

@@ -3,14 +3,14 @@ package fp.flamapar.xmlread.model.produto;
 import jakarta.xml.bind.annotation.XmlElement;
 
 public class IPITrib {
-    private String pIPI;
+    private Double pIPI;
     
     @XmlElement(name = "pIPI", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getpIPI() {
+    public Double getpIPI() {
         return pIPI;
     }
 
-    public void setpIPI(String pIPI) {
+    public void setpIPI(Double pIPI) {
         this.pIPI = pIPI;
     }
     

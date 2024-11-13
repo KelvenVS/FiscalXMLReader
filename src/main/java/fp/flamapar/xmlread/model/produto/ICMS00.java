@@ -5,7 +5,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 public class ICMS00 implements ICMSBase {
     private String orig;
     private String cst;
-    private String pICMS;
+    private Double pICMS;
+    private Double pMVAST;
 
     @XmlElement(name = "orig", namespace = "http://www.portalfiscal.inf.br/nfe")
     public String getOrig() {
@@ -26,11 +27,21 @@ public class ICMS00 implements ICMSBase {
     }
     
     @XmlElement(name = "pICMS", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getpICMS() {
+    public Double getpICMS() {
         return pICMS;
     }
 
-    public void setpICMS(String pICMS) {
+    public void setpICMS(Double pICMS) {
         this.pICMS = pICMS;
     }
+
+    public Double getpMVAST() {
+        return pMVAST;
+    }
+
+    public void setpMVAST(Double pMVAST) {
+        this.pMVAST = pMVAST;
+    }
+    
+    
 }
