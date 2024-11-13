@@ -35,9 +35,9 @@ public class ProductViewer extends JFrame {
         mainPanel.add(new JScrollPane(productList), BorderLayout.NORTH);
 
         // Painel de detalhes com borda e layout ajustado
-        JPanel detailsPanel = new JPanel(new GridLayout(6, 2, 10, 10)); // hgap e vgap para espaçamento
+        JPanel detailsPanel = new JPanel(new GridLayout(6, 2, 10, 5)); // hgap e vgap para espaçamento
         detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // margem ao redor do painel
-
+        
         labelNome = new JLabel("Nome: ");
         labelCodigo = new JLabel("Código: ");
         labelCodigoEAN = new JLabel("Código EAN: ");
@@ -56,10 +56,10 @@ public class ProductViewer extends JFrame {
         detailsPanel.add(labelNome);
         detailsPanel.add(textNome);
         
-        
+    
         detailsPanel.add(labelCodigo);
         detailsPanel.add(textCodigo);
-        
+
         detailsPanel.add(labelCodigoEAN);
         detailsPanel.add(textCodigoEAN);
         
@@ -74,13 +74,13 @@ public class ProductViewer extends JFrame {
         
         mainPanel.add(detailsPanel, BorderLayout.CENTER);
     }
-    
+
     // Método auxiliar para criar JTextArea com margens internas e configuração de tamanho
     private JTextArea createTextArea() {
         JTextArea textArea = new JTextArea();
-        textArea.setLineWrap(true);
+        textArea.setLineWrap(false);
         textArea.setWrapStyleWord(true);
-        textArea.setEditable(true);
+        textArea.setEditable(false);
         textArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // margem interna
         textArea.setBackground(new Color(255, 255, 255)); // cor de fundo para diferenciar
         textArea.setPreferredSize(new Dimension(200, 25)); // altura mínima para uniformidade
