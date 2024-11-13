@@ -10,6 +10,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import java.io.File;
 import java.net.URL;
+import java.text.DecimalFormat;
 
 public class XmlReadExample {
     public static void main(String[] args) {
@@ -44,9 +45,19 @@ public class XmlReadExample {
                     Double icms = icmsBase != null ? icmsBase.getpICMS() : 0.0;
                     Double mva = icmsBase != null ? icmsBase.getpMVAST() : 0.0;
                     Double vProd = prod.getvProd();
+                    Double vUnCom = prod.getvUnCom();
                     Double ipi = ipitrib.getpIPI();
                     
                     //Cálculos
+                    DecimalFormat df = new DecimalFormat("#.00");
+                    Double vIPI = (ipi/100*vUnCom);
+                    Double vProdNF = (vIPI+vUnCom);
+                    Double vICMSproprio = (vUnCom*icms/100);
+                    Double baseICMSst = (vProdNF*(1+(mva/100)));
+                    Double vICMSst = (baseICMSst*icms/100-vICMSproprio);
+                    Double vTotalProd = (vProdNF+vICMSst);
+                    Double pSTsistema = (vICMSst/vUnCom)*100;
+                    Double pSTprod = (vICMSst/(vProdNF))*100;
                     
                     //Prints
                     System.out.println("Item Número: " + det.getNItem()
@@ -54,13 +65,18 @@ public class XmlReadExample {
                             + " Código de Barras: " + prod.getcEAN()
                         + "\nCSTa:" + cstA + " CSTb:" + cstB 
                             + " NCM:" + prod.getNCM()
-                            + " ICMS:" + icms
-                            + " IPI:" + ipi
+                            + " % ICMS:" + icms
+                            + " % IPI:" + ipi
                             + " MVA:" + mva
                         + "\nNome do Produto: " + prod.getXProd()
-                        + "\nPreço Unit: " + vProd 
+                        + "\nPreço Unit: " + vUnCom 
                             + " Unidade:" + prod.getuCom()
                         + "\n--------------------------------------------------------");
+                    System.out.println("\nValor do produto na nota (vUnCom + vIPI + vST):" + df.format(vTotalProd)
+                        + "\nIcms Próprio:" + df.format(vICMSproprio)
+                        + " Base de Cálculo ICMS-ST:" + df.format(baseICMSst)
+                        + "\n% ST Sistema:" + df.format(pSTsistema)
+                        + " % ST:" + df.format(pSTprod));
                 }
             } else {
                 System.out.println("Nenhum item encontrado na nota ou estrutura 'infNFe' está vazia.");

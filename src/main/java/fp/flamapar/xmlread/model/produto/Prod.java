@@ -6,6 +6,7 @@ public class Prod {
     private String cProd;
     private String xProd;
     private Double vProd;
+    private Double vUnCom;
     private String cEAN;
     private String NCM;
     private String uCom;
@@ -62,5 +63,14 @@ public class Prod {
 
     public void setuCom(String uCom) {
         this.uCom = uCom;
+    }
+    
+    @XmlElement(name = "vUnCom", namespace = "http://www.portalfiscal.inf.br/nfe")
+    public Double getvUnCom() {
+        return vUnCom;
+    }
+
+    public void setvUnCom(Double vUnCom) {
+        this.vUnCom = vUnCom;
     }
 }
