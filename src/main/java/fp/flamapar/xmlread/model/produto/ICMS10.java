@@ -35,11 +35,11 @@ public class ICMS10 implements ICMSBase {
         this.pICMS = pICMS;
     }
     
+    @XmlElement(name = "pMVAST", namespace = "http://www.portalfiscal.inf.br/nfe")
     public Double getpMVAST() {
         return pMVAST;
     }
     
-    @XmlElement(name = "pMVAST", namespace = "http://www.portalfiscal.inf.br/nfe")
     public void setpMVAST(Double pMVAST) {
         this.pMVAST = pMVAST;
     }

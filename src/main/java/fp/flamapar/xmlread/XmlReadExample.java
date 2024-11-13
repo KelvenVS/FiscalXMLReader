@@ -42,8 +42,8 @@ public class XmlReadExample {
                     String cstA = icmsBase != null ? icmsBase.getOrig() : "N/A";
                     String cstB = icmsBase != null ? icmsBase.getCst() : "N/A";
                     
-                    Double icms = icmsBase != null ? icmsBase.getpICMS() : 0.0;
-                    Double mva = icmsBase != null ? icmsBase.getpMVAST() : 0.0;
+                    Double icms = (icmsBase != null && icmsBase.getpICMS() != null )? icmsBase.getpICMS() : 0.0;
+                    Double mva = (icmsBase != null && icmsBase.getpMVAST() != null) ? icmsBase.getpMVAST() : 0.0;
                     Double vProd = prod.getvProd();
                     Double vUnCom = prod.getvUnCom();
                     Double ipi = ipitrib.getpIPI();
@@ -70,13 +70,13 @@ public class XmlReadExample {
                             + " MVA:" + mva
                         + "\nNome do Produto: " + prod.getXProd()
                         + "\nPreço Unit: " + vUnCom 
-                            + " Unidade:" + prod.getuCom()
-                        + "\n--------------------------------------------------------");
+                            + " Unidade:" + prod.getuCom());
                     System.out.println("\nValor do produto na nota (vUnCom + vIPI + vST):" + df.format(vTotalProd)
                         + "\nIcms Próprio:" + df.format(vICMSproprio)
                         + " Base de Cálculo ICMS-ST:" + df.format(baseICMSst)
                         + "\n% ST Sistema:" + df.format(pSTsistema)
-                        + " % ST:" + df.format(pSTprod));
+                        + " % ST:" + df.format(pSTprod)
+                        + "\n--------------------------------------------------------");
                 }
             } else {
                 System.out.println("Nenhum item encontrado na nota ou estrutura 'infNFe' está vazia.");

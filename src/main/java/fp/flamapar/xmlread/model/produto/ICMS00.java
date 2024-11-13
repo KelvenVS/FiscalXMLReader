@@ -34,7 +34,8 @@ public class ICMS00 implements ICMSBase {
     public void setpICMS(Double pICMS) {
         this.pICMS = pICMS;
     }
-
+    
+    @XmlElement(name = "pMVAST", namespace = "http://www.portalfiscal.inf.br/nfe")
     public Double getpMVAST() {
         return pMVAST;
     }
