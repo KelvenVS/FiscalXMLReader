@@ -9,8 +9,8 @@ import java.util.List;
 public class ProductViewer extends JFrame {
 
     private JList<ProdutoDetalhes> productList;
-    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelTotal;
-    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, textTotal;
+    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelTotal, labelpIPI, labelvIPI;
+    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, textTotal ,textpIPI , textvIPI;
 
     public ProductViewer() {
         
@@ -38,8 +38,9 @@ public class ProductViewer extends JFrame {
         // Adiciona a lista ao painel principal com rolagem, ocupando toda a largura
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.gridwidth = 6;   // Ocupa duas colunas
+        //gbc.gridheight = 2;  // Ocupa duas linhas
+        gbc.insets = new Insets(5, 10, 5, 5);
         gbc.weightx = 1;
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
@@ -50,6 +51,8 @@ public class ProductViewer extends JFrame {
         labelCodigo = new JLabel("Código: ");
         labelCodigoEAN = new JLabel("Código EAN: ");
         labelNCM = new JLabel("NCM: ");
+        labelpIPI = new JLabel("pIPI: ");
+        labelvIPI = new JLabel("vIPI: ");
         labelPrecoUnit = new JLabel("Preço Unitário: ");
         labelTotal = new JLabel("Total com Impostos: ");
 
@@ -57,6 +60,8 @@ public class ProductViewer extends JFrame {
         textCodigo = createTextArea();
         textCodigoEAN = createTextArea();
         textNCM = createTextArea();
+        textpIPI = createTextArea();
+        textvIPI = createTextArea();
         textPrecoUnit = createTextArea();
         textTotal = createTextArea();
 
@@ -65,8 +70,25 @@ public class ProductViewer extends JFrame {
         addLabelAndField(mainPanel, gbc, labelCodigo, textCodigo, 2);
         addLabelAndField(mainPanel, gbc, labelCodigoEAN, textCodigoEAN, 3);
         addLabelAndField(mainPanel, gbc, labelNCM, textNCM, 4);
-        addLabelAndField(mainPanel, gbc, labelPrecoUnit, textPrecoUnit, 5);
-        addLabelAndField(mainPanel, gbc, labelTotal, textTotal, 6);
+        
+        // Adiciona labelpIPI e textpIPI na mesma linha que labelvIPI e textvIPI
+        gbc.gridy = 5;
+        gbc.gridx = 0;
+        gbc.weightx = 0.1;
+        mainPanel.add(labelpIPI, gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 0.4;
+        mainPanel.add(textpIPI, gbc);
+
+        gbc.gridx = 2;
+        gbc.weightx = 0.1;
+        mainPanel.add(labelvIPI, gbc);
+        gbc.gridx = 3;
+        gbc.weightx = 0.4;
+        mainPanel.add(textvIPI, gbc);
+        
+        addLabelAndField(mainPanel, gbc, labelPrecoUnit, textPrecoUnit, 6);
+        addLabelAndField(mainPanel, gbc, labelTotal, textTotal, 7);
     }
 
     // Método auxiliar para adicionar rótulos e campos de texto no GridBagLayout
@@ -108,6 +130,8 @@ public class ProductViewer extends JFrame {
             textNCM.setText(produto.getNcm());
             textPrecoUnit.setText("" + produto.getPrecoUnitario());
             textTotal.setText("" + produto.getTotalComImpostos());
+            textpIPI.setText("" + produto.getpIPI());
+            textvIPI.setText("" + produto.getvIPI());
         }
     }
 

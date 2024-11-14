@@ -72,7 +72,9 @@ public class XmlReadExample {
                                                 prod.getcEAN(),
                                                 prod.getNCM(),
                                                 vUnCom,
-                                                vTotalProd
+                                                vTotalProd,
+                                                ipi,
+                                                vIPI
                                         );
                                         produtos.add(produtoDetalhes);
                                     }
@@ -81,11 +83,6 @@ public class XmlReadExample {
                                 e.printStackTrace();
                             }
                             return produtos;
-                        }
-
-                        private Double calculateTotalWithTaxes(Prod prod) {
-                            // Implementação simplificada para calcular o total com impostos
-                            return prod.getvUnCom() + 10.0; // Supondo um valor fictício de imposto
                         }
                     }
                     
