@@ -67,16 +67,25 @@ public class XmlReadExample {
                     
                     
                     ProdutoDetalhes produtoDetalhes = new ProdutoDetalhes(
-                                                prod.getXProd(),
-                                                prod.getCProd(),
-                                                prod.getcEAN(),
-                                                prod.getNCM(),
-                                                vUnCom,
-                                                vTotalProd,
-                                                ipi,
-                                                vIPI
-                                        );
-                                        produtos.add(produtoDetalhes);
+                                    prod.getXProd(),       // nome
+                                    prod.getCProd(),       // codigo
+                                    prod.getcEAN(),        // codigoEAN
+                                    prod.getNCM(),         // ncm
+                                    cstA,                  // csta
+                                    cstB,                  // cstb
+                                    prod.getCfop(),        // cfop
+                                    vUnCom,                // precoUnitario
+                                    vTotalProd,            // totalComImpostos
+                                    ipi,                   // pIPI
+                                    vIPI,                  // vIPI
+                                    mva,                   // mva
+                                    pSTsistema,            // stsist
+                                    pSTprod,               // st
+                                    vICMSst,               // icmsst
+                                    vProd,                 // vprod
+                                    baseICMSst             // baseicmsst
+                                    );
+                                    produtos.add(produtoDetalhes);
                                     }
                                 }
                             } catch (JAXBException e) {

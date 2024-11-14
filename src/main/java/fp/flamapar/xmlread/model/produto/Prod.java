@@ -10,6 +10,7 @@ public class Prod {
     private String cEAN;
     private String NCM;
     private String uCom;
+    private String cfop;
 
     @XmlElement(name = "cProd", namespace = "http://www.portalfiscal.inf.br/nfe")
     public String getCProd() {
@@ -72,5 +73,14 @@ public class Prod {
 
     public void setvUnCom(Double vUnCom) {
         this.vUnCom = vUnCom;
+    }
+    
+    @XmlElement(name = "CFOP", namespace = "http://www.portalfiscal.inf.br/nfe")
+    public String getCfop() {
+        return cfop;
+    }
+
+    public void setCfop(String cfop) {
+        this.cfop = cfop;
     }
 }

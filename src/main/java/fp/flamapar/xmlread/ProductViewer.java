@@ -38,8 +38,7 @@ public class ProductViewer extends JFrame {
         // Adiciona a lista ao painel principal com rolagem, ocupando toda a largura
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 6;   // Ocupa duas colunas
-        //gbc.gridheight = 2;  // Ocupa duas linhas
+        gbc.gridwidth = 6;   // Ocupa seis colunas
         gbc.insets = new Insets(5, 10, 5, 5);
         gbc.weightx = 1;
         gbc.weighty = 0.5;
@@ -74,17 +73,17 @@ public class ProductViewer extends JFrame {
         // Adiciona labelpIPI e textpIPI na mesma linha que labelvIPI e textvIPI
         gbc.gridy = 5;
         gbc.gridx = 0;
-        gbc.weightx = 0.1;
+        gbc.weightx = 0.2;
         mainPanel.add(labelpIPI, gbc);
         gbc.gridx = 1;
-        gbc.weightx = 0.4;
+        gbc.weightx = 0.2;
         mainPanel.add(textpIPI, gbc);
 
         gbc.gridx = 2;
-        gbc.weightx = 0.1;
+        gbc.weightx = 0.2;
         mainPanel.add(labelvIPI, gbc);
         gbc.gridx = 3;
-        gbc.weightx = 0.4;
+        gbc.weightx = 0.2;
         mainPanel.add(textvIPI, gbc);
         
         addLabelAndField(mainPanel, gbc, labelPrecoUnit, textPrecoUnit, 6);
