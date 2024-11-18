@@ -19,7 +19,7 @@ public class ProductViewer extends JFrame {
         
         // Configurações da janela principal
         setTitle("Visualizador de Produtos");
-        setSize(800, 600);
+        setSize(800, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -49,62 +49,127 @@ public class ProductViewer extends JFrame {
         mainPanel.add(new JScrollPane(productList), gbc);
         
         
-        
+        // Linha 1
         labelNome = new JLabel("Nome: ");
         addComponent(mainPanel, labelNome, 0, 1);
         
         textNome = createTextArea();
-        addComponent(mainPanel, textNome, 1, 1);
+        addComponent(mainPanel, textNome, 1, 1, 6, 1, 1.0, 0.0, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5));
         
+        //Linha 2
+        int linha = 2;
         labelCodigo = new JLabel("Código: ");
-        addComponent(mainPanel, labelCodigo, 2, 1);
-        
+        addComponent(mainPanel, labelCodigo,0, linha);
         textCodigo = createTextArea();
-        addComponent(mainPanel, textCodigo, 3, 1);
         
+        addComponent(mainPanel, textCodigo, 1, linha);
+ 
         labelCodigoEAN = new JLabel("Código EAN: ");
-        addComponent(mainPanel, labelCodigoEAN, 4, 1);
+        addComponent(mainPanel, labelCodigoEAN, 2, linha);
         
         textCodigoEAN = createTextArea();
-        addComponent(mainPanel, textCodigoEAN, 5, 1);
+        addComponent(mainPanel, textCodigoEAN, 3, linha);
         
+        
+        labelNCM = new JLabel("NCM: ");
+        addComponent(mainPanel, labelNCM, 4, linha);
+        
+        textNCM = createTextArea();
+        addComponent(mainPanel, textNCM, 5, linha);
+        
+        
+        //Linha 3
+        linha = 3;
+        labelCsta = new JLabel("CSTA: ");
+        addComponent(mainPanel, labelCsta, 0, linha);
+        
+        textCsta = createTextArea();
+        addComponent(mainPanel, textCsta, 1, linha);
+        
+        labelCstb = new JLabel("CSTB: ");
+        addComponent(mainPanel, labelCstb, 2, linha);
+        
+        textCstb = createTextArea();
+        addComponent(mainPanel, textCstb, 3, linha);
+        
+        labelCfop = new JLabel("CFOP: ");
+        addComponent(mainPanel, labelCfop, 4, linha);
+        
+        textCfop = createTextArea();
+        addComponent(mainPanel, textCfop, 5, linha);
+        
+        
+        //Linha 4;
+        linha = 4;
+        labelpIPI = new JLabel("pIPI: ");
+        addComponent(mainPanel, labelpIPI, 0, linha);
+        
+        textpIPI = createTextArea();        
+        addComponent(mainPanel, textpIPI, 1, linha);
+        
+        labelvIPI = new JLabel("vIPI: ");
+        addComponent(mainPanel, labelvIPI, 2, linha);
+        
+        textvIPI = createTextArea();
+        addComponent(mainPanel, textvIPI, 3, linha);
+        
+        labelMva = new JLabel("MVA: ");
+        addComponent(mainPanel, labelMva, 4, linha);
+        
+        textMva = createTextArea();
+        addComponent(mainPanel, textMva, 5, linha);
+        
+        //Linha 5
+        linha = 5;
+        labelStsist = new JLabel("ST Sistema: ");
+        addComponent(mainPanel, labelStsist, 0, linha);
+        
+        textStsist = createTextArea();
+        addComponent(mainPanel, textStsist, 1, linha);
+        
+        labelSt = new JLabel("ST: ");
+        addComponent(mainPanel, labelSt, 2, linha);
+        
+        textSt = createTextArea();
+        addComponent(mainPanel, textSt, 3, linha);
+        
+        labelIcmsst = new JLabel("ICMS ST: ");        
+        addComponent(mainPanel, labelIcmsst, 4, linha);
+        
+        textIcmsst = createTextArea();        
+        addComponent(mainPanel, textIcmsst, 5, linha);
+        
+        //Linha 6
+        linha = 6;
+        labelPrecoUnit = new JLabel("Preço Unitário: ");
+        addComponent(mainPanel, labelPrecoUnit, 0, linha);
+        
+        textPrecoUnit = createTextArea();
+        addComponent(mainPanel, textPrecoUnit, 1, linha);
+        
+        labelTotal = new JLabel("Total com Impostos: ");
+        addComponent(mainPanel, labelTotal, 2, linha);
+        
+        textTotal = createTextArea();
+        addComponent(mainPanel, textTotal, 3, linha);
+            
+        labelBaseicmsst = new JLabel("Base ICMS ST: ");
+        addComponent(mainPanel, labelBaseicmsst, 4, linha);
+        
+        textBaseicmsst = createTextArea();
+        addComponent(mainPanel, textBaseicmsst, 5, linha);
         
         
         
         // Inicialização dos JLabels
-        
-        labelNCM = new JLabel("NCM: ");
-        labelPrecoUnit = new JLabel("Preço Unitário: ");
-        labelTotal = new JLabel("Total com Impostos: ");
-        labelpIPI = new JLabel("pIPI: ");
-        labelvIPI = new JLabel("vIPI: ");
-        labelCsta = new JLabel("CSTA: ");
-        labelCstb = new JLabel("CSTB: ");
-        labelCfop = new JLabel("CFOP: ");
-        labelMva = new JLabel("MVA: ");
-        labelStsist = new JLabel("ST Sistema: ");
-        labelSt = new JLabel("ST: ");
-        labelIcmsst = new JLabel("ICMS ST: ");
+
         labelVprod = new JLabel("Valor Produto: ");
-        labelBaseicmsst = new JLabel("Base ICMS ST: ");
+
 
         // Inicialização dos JTextAreas
-        
-        
-        textNCM = createTextArea();
-        textPrecoUnit = createTextArea();
-        textTotal = createTextArea();
-        textpIPI = createTextArea();
-        textvIPI = createTextArea();
-        textCsta = createTextArea();
-        textCstb = createTextArea();
-        textCfop = createTextArea();
-        textMva = createTextArea();
-        textStsist = createTextArea();
-        textSt = createTextArea();
-        textIcmsst = createTextArea();
+
         textVprod = createTextArea();
-        textBaseicmsst = createTextArea();
+
     }
     
     // Método auxiliar para criar JTextArea com margens internas e configuração de tamanho
