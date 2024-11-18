@@ -9,8 +9,11 @@ import java.util.List;
 public class ProductViewer extends JFrame {
 
     private JList<ProdutoDetalhes> productList;
-    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelTotal, labelpIPI, labelvIPI;
-    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, textTotal ,textpIPI , textvIPI;
+    // Declaração dos JLabels para cada atributo de ProdutoDetalhes
+    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelTotal, labelpIPI, labelvIPI,labelCsta, labelCstb, labelCfop, labelMva, labelStsist, labelSt, labelIcmsst, labelVprod, labelBaseicmsst;
+    
+    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, textTotal, textpIPI, textvIPI,textCsta, textCstb, textCfop, textMva, textStsist, textSt, textIcmsst, textVprod, textBaseicmsst;
+
 
     public ProductViewer() {
         
@@ -44,70 +47,66 @@ public class ProductViewer extends JFrame {
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
         mainPanel.add(new JScrollPane(productList), gbc);
-
-        // Define o layout para os detalhes do produto
+        
+        
+        
         labelNome = new JLabel("Nome: ");
+        addComponent(mainPanel, labelNome, 0, 1);
+        
+        textNome = createTextArea();
+        addComponent(mainPanel, textNome, 1, 1);
+        
         labelCodigo = new JLabel("Código: ");
+        addComponent(mainPanel, labelCodigo, 2, 1);
+        
+        textCodigo = createTextArea();
+        addComponent(mainPanel, textCodigo, 3, 1);
+        
         labelCodigoEAN = new JLabel("Código EAN: ");
+        addComponent(mainPanel, labelCodigoEAN, 4, 1);
+        
+        textCodigoEAN = createTextArea();
+        addComponent(mainPanel, textCodigoEAN, 5, 1);
+        
+        
+        
+        
+        // Inicialização dos JLabels
+        
         labelNCM = new JLabel("NCM: ");
-        labelpIPI = new JLabel("pIPI: ");
-        labelvIPI = new JLabel("vIPI: ");
         labelPrecoUnit = new JLabel("Preço Unitário: ");
         labelTotal = new JLabel("Total com Impostos: ");
+        labelpIPI = new JLabel("pIPI: ");
+        labelvIPI = new JLabel("vIPI: ");
+        labelCsta = new JLabel("CSTA: ");
+        labelCstb = new JLabel("CSTB: ");
+        labelCfop = new JLabel("CFOP: ");
+        labelMva = new JLabel("MVA: ");
+        labelStsist = new JLabel("ST Sistema: ");
+        labelSt = new JLabel("ST: ");
+        labelIcmsst = new JLabel("ICMS ST: ");
+        labelVprod = new JLabel("Valor Produto: ");
+        labelBaseicmsst = new JLabel("Base ICMS ST: ");
 
-        textNome = createTextArea();
-        textCodigo = createTextArea();
-        textCodigoEAN = createTextArea();
+        // Inicialização dos JTextAreas
+        
+        
         textNCM = createTextArea();
-        textpIPI = createTextArea();
-        textvIPI = createTextArea();
         textPrecoUnit = createTextArea();
         textTotal = createTextArea();
-
-        // Adiciona os rótulos e campos de texto no painel com GridBagLayout
-        addLabelAndField(mainPanel, gbc, labelNome, textNome, 1);
-        addLabelAndField(mainPanel, gbc, labelCodigo, textCodigo, 2);
-        addLabelAndField(mainPanel, gbc, labelCodigoEAN, textCodigoEAN, 3);
-        addLabelAndField(mainPanel, gbc, labelNCM, textNCM, 4);
-        
-        // Adiciona labelpIPI e textpIPI na mesma linha que labelvIPI e textvIPI
-        gbc.gridy = 5;
-        gbc.gridx = 0;
-        gbc.weightx = 0.2;
-        mainPanel.add(labelpIPI, gbc);
-        gbc.gridx = 1;
-        gbc.weightx = 0.2;
-        mainPanel.add(textpIPI, gbc);
-
-        gbc.gridx = 2;
-        gbc.weightx = 0.2;
-        mainPanel.add(labelvIPI, gbc);
-        gbc.gridx = 3;
-        gbc.weightx = 0.2;
-        mainPanel.add(textvIPI, gbc);
-        
-        addLabelAndField(mainPanel, gbc, labelPrecoUnit, textPrecoUnit, 6);
-        addLabelAndField(mainPanel, gbc, labelTotal, textTotal, 7);
+        textpIPI = createTextArea();
+        textvIPI = createTextArea();
+        textCsta = createTextArea();
+        textCstb = createTextArea();
+        textCfop = createTextArea();
+        textMva = createTextArea();
+        textStsist = createTextArea();
+        textSt = createTextArea();
+        textIcmsst = createTextArea();
+        textVprod = createTextArea();
+        textBaseicmsst = createTextArea();
     }
-
-    // Método auxiliar para adicionar rótulos e campos de texto no GridBagLayout
-    private void addLabelAndField(JPanel panel, GridBagConstraints gbc, JLabel label, JTextArea textArea, int row) {
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 10, 5, 10);
-
-        // Adiciona o rótulo
-        gbc.gridx = 0;
-        gbc.gridy = row;
-        gbc.gridwidth = 1;
-        gbc.weightx = 0.1;
-        panel.add(label, gbc);
-
-        // Adiciona o campo de texto
-        gbc.gridx = 1;
-        gbc.weightx = 0.9;
-        panel.add(textArea, gbc);
-    }
-
+    
     // Método auxiliar para criar JTextArea com margens internas e configuração de tamanho
     private JTextArea createTextArea() {
         JTextArea textArea = new JTextArea();
@@ -124,20 +123,64 @@ public class ProductViewer extends JFrame {
     private void showProductDetails(ProdutoDetalhes produto) {
         if (produto != null) {
             textNome.setText(produto.getNome());
+            System.out.println(produto.getNome());
             textCodigo.setText(produto.getCodigo());
             textCodigoEAN.setText(produto.getCodigoEAN());
             textNCM.setText(produto.getNcm());
-            textPrecoUnit.setText("" + produto.getPrecoUnitario());
-            textTotal.setText("" + produto.getTotalComImpostos());
-            textpIPI.setText("" + produto.getpIPI());
-            textvIPI.setText("" + produto.getvIPI());
+            textPrecoUnit.setText(String.valueOf(produto.getPrecoUnitario()));
+            textTotal.setText(String.valueOf(produto.getTotalComImpostos()));
+            textpIPI.setText(String.valueOf(produto.getpIPI()));
+            textvIPI.setText(String.valueOf(produto.getvIPI()));
+            textCsta.setText(produto.getCsta());
+            textCstb.setText(produto.getCstb());
+            textCfop.setText(produto.getCfop());
+            textMva.setText(String.valueOf(produto.getMva()));
+            textStsist.setText(String.valueOf(produto.getStsist()));
+            textSt.setText(String.valueOf(produto.getSt()));
+            textIcmsst.setText(String.valueOf(produto.getIcmsst()));
+            textVprod.setText(String.valueOf(produto.getVprod()));
+            textBaseicmsst.setText(String.valueOf(produto.getBaseicmsst()));
         }
     }
+    
+        private void addComponent(JPanel panel, Component component, int gridx, int gridy) {
+            addComponent(panel, component, gridx, gridy, 1, 1, 0.0, 0.0, GridBagConstraints.NONE, new Insets(5, 5, 5, 5));
+        }
 
+        private void addComponent(JPanel panel, Component component, int gridx, int gridy, int gridwidth, int gridheight) {
+            addComponent(panel, component, gridx, gridy, gridwidth, gridheight, 0.0, 0.0, GridBagConstraints.NONE, new Insets(5, 5, 5, 5));
+        }
+
+        private void addComponent(
+            JPanel panel,
+            Component component,
+            int gridx,
+            int gridy,
+            int gridwidth,
+            int gridheight,
+            double weightx,
+            double weighty,
+            int fill,
+            Insets insets
+        ) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = gridx;
+            gbc.gridy = gridy;
+            gbc.gridwidth = gridwidth;
+            gbc.gridheight = gridheight;
+            gbc.weightx = weightx;
+            gbc.weighty = weighty;
+            gbc.fill = fill;
+            gbc.insets = insets;
+            panel.add(component, gbc);
+        }
+
+
+    
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ProductViewer viewer = new ProductViewer();
-            viewer.setVisible(true);
-        });
+    SwingUtilities.invokeLater(() -> {
+        ProductViewer viewer = new ProductViewer();
+        viewer.setVisible(true);
+    });
     }
 }
