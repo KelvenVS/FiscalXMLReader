@@ -53,13 +53,14 @@ public class XmlReadExample {
                     Double vUnCom = prod.getvUnCom();
                     Double ipi = ipitrib.getpIPI();
                     String uCom = prod.getUCom();
+                    Double vFrete = prod.getvFrete();
                     
                     //Cálculos
                     DecimalFormat df = new DecimalFormat("#.00");
                     Double vIPI = (ipi/100*vUnCom);
                     Double vProdNF = (vIPI+vUnCom);
                     Double vICMSproprio = (vUnCom*icms/100);
-                    Double baseICMSst = (vProdNF*(1+(mva/100)));
+                    Double baseICMSst = ((vProdNF+vIPI+vFrete)*(1+(mva/100)));
                     Double vICMSst = (baseICMSst*icms/100-vICMSproprio);
                     Double vTotalProd = (vProdNF+vICMSst);
                     Double pSTsistema = (vICMSst/vUnCom)*100;
@@ -84,7 +85,8 @@ public class XmlReadExample {
                                     pSTprod,               // st
                                     vICMSst,               // icmsst
                                     vProd,                 // vprod
-                                    baseICMSst             // baseicmsst
+                                    baseICMSst,             // baseicmsst
+                                    vFrete                 //Valor do Frete do produto
                                     );
                                     produtos.add(produtoDetalhes);
                                     }

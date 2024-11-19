@@ -7,6 +7,7 @@ public class Prod {
     private String xProd;
     private Double vProd;
     private Double vUnCom;
+    private Double vFrete;
     private String cEAN;
     private String NCM;
     private String uCom;
@@ -73,6 +74,15 @@ public class Prod {
 
     public void setvUnCom(Double vUnCom) {
         this.vUnCom = vUnCom;
+    }
+    
+    @XmlElement(name = "vFrete", namespace = "http://www.portalfiscal.inf.br/nfe")
+    public Double getvFrete() {
+        return vFrete;
+    }
+
+    public void setvFrete(Double vFrete) {
+        this.vFrete = vFrete;
     }
     
     @XmlElement(name = "CFOP", namespace = "http://www.portalfiscal.inf.br/nfe")
