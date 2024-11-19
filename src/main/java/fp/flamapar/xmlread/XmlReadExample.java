@@ -49,17 +49,17 @@ public class XmlReadExample {
                     String cstB = icmsBase != null ? icmsBase.getCst() : "N/A";
                     Double icms = (icmsBase != null && icmsBase.getpICMS() != null )? icmsBase.getpICMS() : 0.0;
                     Double mva = (icmsBase != null && icmsBase.getpMVAST() != null) ? icmsBase.getpMVAST() : 0.0;
-                    Double vProd = prod.getvProd();
-                    Double vUnCom = prod.getvUnCom();
+                    Double vProd = prod.getVProd();
+                    Double vUnCom = prod.getVUnCom();
                     Double ipi = ipitrib.getpIPI();
                     String uCom = prod.getUCom();
-                    Double vFrete = prod.getvFrete();
+                    Double vFrete = prod.getVFrete();
                     
                     //Cálculos
                     DecimalFormat df = new DecimalFormat("#.00");
                     Double vIPI = (ipi/100*vUnCom);
                     Double vProdNF = (vIPI+vUnCom);
-                    Double vICMSproprio = (vUnCom*icms/100);
+                    Double vICMSproprio = ((vUnCom+vFrete)*icms/100);
                     Double baseICMSst = ((vProdNF+vIPI+vFrete)*(1+(mva/100)));
                     Double vICMSst = (baseICMSst*icms/100-vICMSproprio);
                     Double vTotalProd = (vProdNF+vICMSst);
@@ -70,7 +70,7 @@ public class XmlReadExample {
                     ProdutoDetalhes produtoDetalhes = new ProdutoDetalhes(
                                     prod.getXProd(),       // nome
                                     prod.getCProd(),       // codigo
-                                    prod.getcEAN(),        // codigoEAN
+                                    prod.getCEAN(),        // codigoEAN
                                     prod.getNCM(),         // ncm
                                     cstA,                  // csta
                                     cstB,                  // cstb
