@@ -2,12 +2,12 @@
 package fp.flamapar.xmlread.model;
 
 public class ProdutoDetalhes {
-    private String nome , codigo , codigoEAN , ncm , csta , cstb , cfop;
+    private String nome , codigo , codigoEAN , ncm , csta , cstb , cfop , uCom;
     private Double precoUnitario ,totalComImpostos , pIPI , vIPI , mva , stsist , st , icmsst , vprod ,baseicmsst;
 
     
     // Construtor com todos os atributos
-    public ProdutoDetalhes(String nome, String codigo, String codigoEAN, String ncm, String csta, String cstb, String cfop, Double precoUnitario, Double totalComImpostos, Double pIPI, Double vIPI, Double mva, Double stsist, Double st, Double icmsst, Double vprod, Double baseicmsst) {
+    public ProdutoDetalhes(String nome, String codigo, String codigoEAN, String ncm, String csta, String cstb, String cfop,String uCom, Double precoUnitario, Double totalComImpostos, Double pIPI, Double vIPI, Double mva, Double stsist, Double st, Double icmsst, Double vprod, Double baseicmsst) {
         this.nome = nome;
         this.codigo = codigo;
         this.codigoEAN = codigoEAN;
@@ -15,6 +15,7 @@ public class ProdutoDetalhes {
         this.csta = csta;
         this.cstb = cstb;
         this.cfop = cfop;
+        this.uCom = uCom;
         this.precoUnitario = precoUnitario;
         this.totalComImpostos = totalComImpostos;
         this.pIPI = pIPI;
@@ -38,6 +39,7 @@ public class ProdutoDetalhes {
     public String getCsta() { return csta; }
     public String getCstb() { return cstb; }
     public String getCfop() { return cfop; }
+    public String getUCom() { return uCom; }
     public Double getMva() { return mva; }
     public Double getStsist() { return stsist; }
     public Double getSt() { return st; }

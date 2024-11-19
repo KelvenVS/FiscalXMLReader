@@ -10,9 +10,9 @@ public class ProductViewer extends JFrame {
 
     private JList<ProdutoDetalhes> productList;
     // Declaração dos JLabels para cada atributo de ProdutoDetalhes
-    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelTotal, labelpIPI, labelvIPI,labelCsta, labelCstb, labelCfop, labelMva, labelStsist, labelSt, labelIcmsst, labelVprod, labelBaseicmsst;
+    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelTotal, labelpIPI, labelvIPI,labelCsta, labelCstb, labelCfop, labelMva, labelStsist, labelSt, labelIcmsst, labelUcom, labelBaseicmsst;
     
-    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, textTotal, textpIPI, textvIPI,textCsta, textCstb, textCfop, textMva, textStsist, textSt, textIcmsst, textVprod, textBaseicmsst;
+    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, textTotal, textpIPI, textvIPI,textCsta, textCstb, textCfop, textMva, textStsist, textSt, textIcmsst, textUcom, textBaseicmsst;
 
 
     public ProductViewer() {
@@ -50,14 +50,23 @@ public class ProductViewer extends JFrame {
         
         
         // Linha 1
+        int linha = 1;
         labelNome = new JLabel("Nome: ");
-        addComponent(mainPanel, labelNome, 0, 1);
+        addComponent(mainPanel, labelNome, 0, linha);
         
         textNome = createTextArea();
-        addComponent(mainPanel, textNome, 1, 1, 6, 1, 1.0, 0.0, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5));
+        addComponent(mainPanel, textNome, 1, linha, 3, 1, 1.0, 0.0, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5));
+        
+        labelUcom = new JLabel("Unidade: ");
+        addComponent(mainPanel, labelUcom, 4, linha);
+        
+        textUcom = createTextArea();
+        addComponent(mainPanel, textUcom, 5, linha);
+        
+        
         
         //Linha 2
-        int linha = 2;
+        linha = 2;
         labelCodigo = new JLabel("Código: ");
         addComponent(mainPanel, labelCodigo,0, linha);
         textCodigo = createTextArea();
@@ -159,16 +168,7 @@ public class ProductViewer extends JFrame {
         textBaseicmsst = createTextArea();
         addComponent(mainPanel, textBaseicmsst, 5, linha);
         
-        
-        
-        // Inicialização dos JLabels
-
-        labelVprod = new JLabel("Valor Produto: ");
-
-
-        // Inicialização dos JTextAreas
-
-        textVprod = createTextArea();
+      
 
     }
     
@@ -188,7 +188,8 @@ public class ProductViewer extends JFrame {
     private void showProductDetails(ProdutoDetalhes produto) {
         if (produto != null) {
             textNome.setText(produto.getNome());
-            System.out.println(produto.getNome());
+            //System.out.println(produto.getNome());
+            
             textCodigo.setText(produto.getCodigo());
             textCodigoEAN.setText(produto.getCodigoEAN());
             textNCM.setText(produto.getNcm());
@@ -203,7 +204,10 @@ public class ProductViewer extends JFrame {
             textStsist.setText(String.valueOf(produto.getStsist()));
             textSt.setText(String.valueOf(produto.getSt()));
             textIcmsst.setText(String.valueOf(produto.getIcmsst()));
-            textVprod.setText(String.valueOf(produto.getVprod()));
+            
+            textUcom.setText(String.valueOf(produto.getUCom()));
+            //System.out.println(produto.getUCom());
+            
             textBaseicmsst.setText(String.valueOf(produto.getBaseicmsst()));
         }
     }

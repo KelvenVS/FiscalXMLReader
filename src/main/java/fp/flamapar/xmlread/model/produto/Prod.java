@@ -58,11 +58,11 @@ public class Prod {
     }
     
     @XmlElement(name = "uCom", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getuCom() {
+    public String getUCom() {
         return uCom;
     }
 
-    public void setuCom(String uCom) {
+    public void setUCom(String uCom) {
         this.uCom = uCom;
     }
     

@@ -47,12 +47,12 @@ public class XmlReadExample {
                     //Var
                     String cstA = icmsBase != null ? icmsBase.getOrig() : "N/A";
                     String cstB = icmsBase != null ? icmsBase.getCst() : "N/A";
-                    
                     Double icms = (icmsBase != null && icmsBase.getpICMS() != null )? icmsBase.getpICMS() : 0.0;
                     Double mva = (icmsBase != null && icmsBase.getpMVAST() != null) ? icmsBase.getpMVAST() : 0.0;
                     Double vProd = prod.getvProd();
                     Double vUnCom = prod.getvUnCom();
                     Double ipi = ipitrib.getpIPI();
+                    String uCom = prod.getUCom();
                     
                     //Cálculos
                     DecimalFormat df = new DecimalFormat("#.00");
@@ -74,6 +74,7 @@ public class XmlReadExample {
                                     cstA,                  // csta
                                     cstB,                  // cstb
                                     prod.getCfop(),        // cfop
+                                    uCom, //Unidade Comercializada
                                     vUnCom,                // precoUnitario
                                     vTotalProd,            // totalComImpostos
                                     ipi,                   // pIPI
