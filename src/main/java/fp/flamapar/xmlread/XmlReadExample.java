@@ -53,7 +53,7 @@ public class XmlReadExample {
                     Double vUnCom = prod.getVUnCom();
                     Double ipi = ipitrib.getpIPI();
                     String uCom = prod.getUCom();
-                    Double vFrete = prod.getVFrete();
+                    Double vFrete = (prod.getVFrete() != null ? prod.getVFrete() : 0.0);
                     
                     //Cálculos
                     DecimalFormat df = new DecimalFormat("#.00");
