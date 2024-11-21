@@ -4,7 +4,10 @@ import fp.flamapar.xmlread.model.ProdutoDetalhes;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
+import java.awt.dnd.*; // Para Drag-and-Drop
+import java.awt.datatransfer.DataFlavor; // Para Transferência de Dados
+import java.io.File;
+import java.util.List; // Para manipular múltiplos arquivos
 
 public class ProductViewer extends JFrame {
 
@@ -16,6 +19,16 @@ public class ProductViewer extends JFrame {
 
 
     public ProductViewer() {
+        
+        productList = new JList<>();
+        
+        // Adiciona um listener à lista para atualizar os detalhes ao clicar
+        productList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) { // Evita múltiplas notificações durante uma única seleção
+                ProdutoDetalhes selectedProduct = productList.getSelectedValue();
+                showProductDetails(selectedProduct);
+            }
+        });
         
         // Configurações da janela principal
         setTitle("Visualizador de Produtos");
@@ -29,28 +42,55 @@ public class ProductViewer extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         
-        // Carrega a lista de produtos
-        XmlReadExample xmlReadExample = new XmlReadExample();
-        List<ProdutoDetalhes> produtos = xmlReadExample.loadProdutos();
+        
+        JLabel dragDropArea = new JLabel("Arraste o arquivo XML aqui", SwingConstants.CENTER);
+        dragDropArea.setPreferredSize(new Dimension(600, 100));
+        dragDropArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        dragDropArea.setOpaque(true);
+        dragDropArea.setBackground(Color.LIGHT_GRAY);
+        dragDropArea.setForeground(Color.BLACK);
 
-        // Configura a JList de produtos
-        productList = new JList<>(produtos.toArray(new ProdutoDetalhes[0]));
-        productList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        productList.addListSelectionListener(e -> showProductDetails(productList.getSelectedValue()));
+        // Configura o Drag-and-Drop para o dragDropArea
+        new DropTarget(dragDropArea, new DropTargetAdapter() {
+            @Override
+            public void drop(DropTargetDropEvent dtde) {
+                try {
+                    dtde.acceptDrop(DnDConstants.ACTION_COPY);
+                    List<File> droppedFiles = (List<File>) dtde.getTransferable()
+                            .getTransferData(DataFlavor.javaFileListFlavor);
+
+                    for (File file : droppedFiles) {
+                        if (file.getName().endsWith(".xml")) {
+                            processXmlFile(file); // Processa o arquivo XML
+                        } else {
+                            JOptionPane.showMessageDialog(dragDropArea, "Por favor, insira apenas arquivos XML.");
+                        }
+                    }
+
+                    dtde.dropComplete(true);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(dragDropArea, "Erro ao processar o arquivo: " + ex.getMessage());
+                    dtde.dropComplete(false);
+                }
+            }
+        });
         
         // Adiciona a lista ao painel principal com rolagem, ocupando toda a largura
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 6;   // Ocupa seis colunas
+        gbc.gridheight = 3;  // Ocupa 3 linhas
         gbc.insets = new Insets(5, 10, 5, 5);
         gbc.weightx = 1;
-        gbc.weighty = 0.5;
+        gbc.weighty = 1;
         gbc.fill = GridBagConstraints.BOTH;
         mainPanel.add(new JScrollPane(productList), gbc);
         
         
+              
+        
         // Linha 1
-        int linha = 1;
+        int linha = 4;
         labelNome = new JLabel("Nome: ");
         addComponent(mainPanel, labelNome, 0, linha);
         
@@ -66,7 +106,7 @@ public class ProductViewer extends JFrame {
         
         
         //Linha 2
-        linha = 2;
+        linha = linha + 1;
         labelCodigo = new JLabel("Código: ");
         addComponent(mainPanel, labelCodigo,0, linha);
         textCodigo = createTextArea();
@@ -88,7 +128,7 @@ public class ProductViewer extends JFrame {
         
         
         //Linha 3
-        linha = 3;
+        linha = linha + 1;
         labelCsta = new JLabel("CSTA: ");
         addComponent(mainPanel, labelCsta, 0, linha);
         
@@ -109,7 +149,7 @@ public class ProductViewer extends JFrame {
         
         
         //Linha 4;
-        linha = 4;
+        linha = linha + 1;
         labelpIPI = new JLabel("pIPI: ");
         addComponent(mainPanel, labelpIPI, 0, linha);
         
@@ -129,7 +169,7 @@ public class ProductViewer extends JFrame {
         addComponent(mainPanel, textMva, 5, linha);
         
         //Linha 5
-        linha = 5;
+        linha = linha + 1;
         labelStsist = new JLabel("ST Sistema: ");
         addComponent(mainPanel, labelStsist, 0, linha);
         
@@ -149,7 +189,7 @@ public class ProductViewer extends JFrame {
         addComponent(mainPanel, textIcmsst, 5, linha);
         
         //Linha 6
-        linha = 6;
+        linha = linha + 1;
         labelPrecoUnit = new JLabel("Preço Unitário: ");
         addComponent(mainPanel, labelPrecoUnit, 0, linha);
         
@@ -168,8 +208,11 @@ public class ProductViewer extends JFrame {
         textBaseicmsst = createTextArea();
         addComponent(mainPanel, textBaseicmsst, 5, linha);
         
-      
+        //Linha 7
+        linha = linha + 1;
+        addComponent(mainPanel, dragDropArea, 0, linha, 6, 1, 1.0, 0.0, GridBagConstraints.BOTH, new Insets(10, 10, 10, 10));
 
+      
     }
     
     // Método auxiliar para criar JTextArea com margens internas e configuração de tamanho
@@ -243,7 +286,26 @@ public class ProductViewer extends JFrame {
             gbc.insets = insets;
             panel.add(component, gbc);
         }
+        
+    private void processXmlFile(File file) {
+        XmlReadExample xmlReadExample = new XmlReadExample();
+        try {
+            // Atualiza a lista de produtos
+            List<ProdutoDetalhes> produtos = xmlReadExample.loadProdutos(file);
 
+            // Verifique se productList não é nula antes de usá-la
+            if (productList == null) {
+                productList = new JList<>();
+            }
+
+            // Atualiza a JList
+            productList.setListData(produtos.toArray(new ProdutoDetalhes[0]));
+
+            JOptionPane.showMessageDialog(this, "Arquivo XML processado com sucesso!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao processar o XML: " + ex.getMessage());
+        }
+    }
 
     
     public static void main(String[] args) {

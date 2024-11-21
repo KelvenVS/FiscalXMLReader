@@ -18,24 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XmlReadExample {
-    public List<ProdutoDetalhes> loadProdutos() {
+    public List<ProdutoDetalhes> loadProdutos(File file) {
         List<ProdutoDetalhes> produtos = new ArrayList<>();
         try {
             // Configurar JAXB para a classe raiz NfeProc
             JAXBContext context = JAXBContext.newInstance(NfeProc.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
-            // Carregar o XML e deserializar para NfeProc
-            URL resource = XmlReadExample.class.getClassLoader().getResource("nfe.xml");
-            if (resource == null) {
-                System.out.println("Arquivo XML não encontrado.");
-                return produtos;
-            }
-
-            File file = new File(resource.getFile());
+            // Deserializar o XML fornecido no arquivo para NfeProc
             NfeProc nfeProc = (NfeProc) unmarshaller.unmarshal(file);
-            
-            
+
             // Acessar a lista de itens (det) dentro de infNFe
             if (nfeProc.getNfe() != null && nfeProc.getNfe().getInfNFe() != null) {
                 for (Det det : nfeProc.getNfe().getInfNFe().getDet()) {
@@ -54,18 +46,19 @@ public class XmlReadExample {
                     Double ipi = ipitrib.getpIPI();
                     String uCom = prod.getUCom();
                     Double vFrete = (prod.getVFrete() != null ? prod.getVFrete() : 0.0);
-                    
+                                       
                     //Cálculos
                     DecimalFormat df = new DecimalFormat("#.00");
                     Double vIPI = (ipi/100*vUnCom);
                     Double vProdNF = (vIPI+vUnCom);
                     Double vICMSproprio = ((vUnCom+vFrete)*icms/100);
-                    Double baseICMSst = ((vProdNF+vIPI+vFrete)*(1+(mva/100)));
+                    Double baseICMSst = ((vProdNF+vFrete)*(1+(mva/100)));
                     Double vICMSst = (baseICMSst*icms/100-vICMSproprio);
                     Double vTotalProd = (vProdNF+vICMSst);
                     Double pSTsistema = (vICMSst/vUnCom)*100;
                     Double pSTprod = (vICMSst/(vProdNF))*100;
                     
+                    //adicionar um metodo para truncar valores
                     
                     ProdutoDetalhes produtoDetalhes = new ProdutoDetalhes(
                                     prod.getXProd(),       // nome
