@@ -1,76 +1,51 @@
 package fp.flamapar.xmlread.model.produto;
 
 import jakarta.xml.bind.annotation.XmlElement;
+import lombok.Data;
+import lombok.Getter;
 
+@Data
 public class Prod {
-    private String cProd;
-    private String xProd;
-    private Double vProd;
-    private Double vUnCom;
-    private String cEAN;
-    private String NCM;
-    private String uCom;
-
+    
+    //Código do Produto
     @XmlElement(name = "cProd", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getCProd() {
-        return cProd;
-    }
-
-    public void setCProd(String cProd) {
-        this.cProd = cProd;
-    }
-
+    private String cProd;
+    
+    //Nome do produto
     @XmlElement(name = "xProd", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getXProd() {
-        return xProd;
-    }
-
-    public void setXProd(String xProd) {
-        this.xProd = xProd;
-    }
+    private String xProd;
     
+    //Valor bruto x QTD
     @XmlElement(name = "vProd", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public Double getvProd() {
-        return vProd;
-    }
-
-    public void setvProd(Double vProd) {
-        this.vProd = vProd;
-    }
+    private Double vProd;
     
-    @XmlElement(name = "cEAN", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getcEAN() {
-        return cEAN;
-    }
-
-    public void setcEAN(String cEAN) {
-        this.cEAN = cEAN;
-    }
-    
-    @XmlElement(name = "NCM", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getNCM() {
-        return NCM;
-    }
-    
-    public void setNCM(String NCM) {
-        this.NCM = NCM;
-    }
-    
-    @XmlElement(name = "uCom", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getuCom() {
-        return uCom;
-    }
-
-    public void setuCom(String uCom) {
-        this.uCom = uCom;
-    }
-    
+    //Valor bruto da Unidade
     @XmlElement(name = "vUnCom", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public Double getvUnCom() {
-        return vUnCom;
-    }
+    private Double vUnCom;
+    
+    //Frete do Produto
+    @XmlElement(name = "vFrete", namespace = "http://www.portalfiscal.inf.br/nfe")
+    private Double vFrete;
+    
+    //Código de Barras
+    @XmlElement(name = "cEAN", namespace = "http://www.portalfiscal.inf.br/nfe")
+    private String cEAN;
+        
+    //Habilitar SOMENTE Getters para evitar duplicidade
+    //Código NCM do produto
+    @Getter(onMethod_ = {@XmlElement(name = "NCM", namespace = "http://www.portalfiscal.inf.br/nfe")})
+    private String NCM;
+    
+    //Tipo de Unidade
+    @XmlElement(name = "uCom", namespace = "http://www.portalfiscal.inf.br/nfe")
+    private String uCom;
+    
+    //Código CFOP
+    @Getter(onMethod_ = {@XmlElement(name = "CFOP", namespace = "http://www.portalfiscal.inf.br/nfe")})
+    private String cfop;
+    
+    //Quantidade
+    @XmlElement(name = "qCom", namespace = "http://www.portalfiscal.inf.br/nfe")
+    private String qCom;
 
-    public void setvUnCom(Double vUnCom) {
-        this.vUnCom = vUnCom;
-    }
 }
