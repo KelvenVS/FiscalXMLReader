@@ -3,11 +3,11 @@ package fp.flamapar.xmlread.model;
 
 public class ProdutoDetalhes {
     private String nome , codigo , codigoEAN , ncm , csta , cstb , cfop , uCom;
-    private Double precoUnitario ,totalComImpostos , pIPI , vIPI , mva , stsist , st , icmsst , vprod ,baseicmsst , vFrete;
+    private Double precoUnitario ,totalComImpostos , pIPI , vIPI , mva , stsist , st , icmsst , vprod ,baseicmsst , vFrete, qCom;
 
     
     // Construtor com todos os atributos
-    public ProdutoDetalhes(String nome, String codigo, String codigoEAN, String ncm, String csta, String cstb, String cfop,String uCom, Double precoUnitario, Double totalComImpostos, Double pIPI, Double vIPI, Double mva, Double stsist, Double st, Double icmsst, Double vprod, Double baseicmsst , Double vFrete) {
+    public ProdutoDetalhes(String nome, String codigo, String codigoEAN, String ncm, String csta, String cstb, String cfop,String uCom, Double precoUnitario, Double totalComImpostos, Double pIPI, Double vIPI, Double mva, Double stsist, Double st, Double icmsst, Double vprod, Double baseicmsst , Double vFrete, Double qCom) {
         this.nome = nome;
         this.codigo = codigo;
         this.codigoEAN = codigoEAN;
@@ -27,6 +27,7 @@ public class ProdutoDetalhes {
         this.vprod = vprod;
         this.baseicmsst = baseicmsst;
         this.vFrete = vFrete;
+        this.qCom = qCom;
  }
     
     public String getNome() { return nome; }
@@ -48,6 +49,7 @@ public class ProdutoDetalhes {
     public Double getVprod() { return vprod; }
     public Double getBaseicmsst() { return baseicmsst; }
     public Double getvFrete() { return vFrete; }
+    public Double getQCom() { return qCom; }
     
 
     @Override

@@ -46,6 +46,6 @@ public class Prod {
     
     //Quantidade
     @XmlElement(name = "qCom", namespace = "http://www.portalfiscal.inf.br/nfe")
-    private String qCom;
+    private Double qCom;
 
 }

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.dnd.*; // Para Drag-and-Drop
 import java.awt.datatransfer.DataFlavor; // Para Transferência de Dados
+import java.text.DecimalFormat; // Para Formatar os Doubles
 import java.io.File;
 import java.util.List; // Para manipular múltiplos arquivos
 
@@ -150,19 +151,19 @@ public class ProductViewer extends JFrame {
         
         //Linha 4;
         linha = linha + 1;
-        labelpIPI = new JLabel("pIPI: ");
+        labelpIPI = new JLabel("% IPI: ");
         addComponent(mainPanel, labelpIPI, 0, linha);
         
         textpIPI = createTextArea();        
         addComponent(mainPanel, textpIPI, 1, linha);
         
-        labelvIPI = new JLabel("vIPI: ");
+        labelvIPI = new JLabel("IPI: ");
         addComponent(mainPanel, labelvIPI, 2, linha);
         
         textvIPI = createTextArea();
         addComponent(mainPanel, textvIPI, 3, linha);
         
-        labelMva = new JLabel("MVA: ");
+        labelMva = new JLabel("% MVA: ");
         addComponent(mainPanel, labelMva, 4, linha);
         
         textMva = createTextArea();
@@ -170,13 +171,13 @@ public class ProductViewer extends JFrame {
         
         //Linha 5
         linha = linha + 1;
-        labelStsist = new JLabel("ST Sistema: ");
+        labelStsist = new JLabel("% ST Sistema: ");
         addComponent(mainPanel, labelStsist, 0, linha);
         
         textStsist = createTextArea();
         addComponent(mainPanel, textStsist, 1, linha);
         
-        labelSt = new JLabel("ST: ");
+        labelSt = new JLabel("% ST: ");
         addComponent(mainPanel, labelSt, 2, linha);
         
         textSt = createTextArea();
@@ -227,28 +228,37 @@ public class ProductViewer extends JFrame {
         return textArea;
     }
     
+    DecimalFormat df = new DecimalFormat();
+    
     // Atualiza o Produto ao clicar
     private void showProductDetails(ProdutoDetalhes produto) {
         if (produto != null) {
             textNome.setText(produto.getNome());
             //System.out.println(produto.getNome());
             
+            df.applyPattern("R$ #,##0.00");
+            textPrecoUnit.setText(df.format(produto.getPrecoUnitario()));
+            textTotal.setText(df.format(produto.getTotalComImpostos()));
+            textvIPI.setText(df.format(produto.getvIPI()));
+            textIcmsst.setText(df.format(produto.getIcmsst()));
+            
+            
+            df.applyPattern("##0.00");
+            textpIPI.setText(df.format(produto.getpIPI()));
+            textStsist.setText(df.format(produto.getStsist()));
+            textSt.setText(df.format(produto.getSt()));
+            
             textCodigo.setText(produto.getCodigo());
             textCodigoEAN.setText(produto.getCodigoEAN());
             textNCM.setText(produto.getNcm());
-            textPrecoUnit.setText(String.valueOf(produto.getPrecoUnitario()));
-            textTotal.setText(String.valueOf(produto.getTotalComImpostos()));
-            textpIPI.setText(String.valueOf(produto.getpIPI()));
-            textvIPI.setText(String.valueOf(produto.getvIPI()));
             textCsta.setText(produto.getCsta());
             textCstb.setText(produto.getCstb());
             textCfop.setText(produto.getCfop());
             textMva.setText(String.valueOf(produto.getMva()));
-            textStsist.setText(String.valueOf(produto.getStsist()));
-            textSt.setText(String.valueOf(produto.getSt()));
-            textIcmsst.setText(String.valueOf(produto.getIcmsst()));
+
             
-            textUcom.setText(String.valueOf(produto.getUCom()));
+            
+            textUcom.setText(String.valueOf(produto.getQCom() + " x "+ produto.getUCom()));
             //System.out.println(produto.getUCom());
             
             textBaseicmsst.setText(String.valueOf(produto.getBaseicmsst()));

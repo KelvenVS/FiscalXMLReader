@@ -12,8 +12,6 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
 import java.io.File;
-import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +29,19 @@ public class XmlReadExample {
             // Acessar a lista de itens (det) dentro de infNFe
             if (nfeProc.getNfe() != null && nfeProc.getNfe().getInfNFe() != null) {
                 for (Det det : nfeProc.getNfe().getInfNFe().getDet()) {
+                    
                     //Object
                     Prod prod = det.getProd();
                     IPITrib ipitrib = det.getImposto().getIpi().getIpitrib();
                     ICMSBase icmsBase = det.getImposto().getIcms().getICMSType();
 
                     //Var
+                    
+                    String nome = prod.getXProd();
+                    String codigoProd = prod.getCProd();
+                    String ccodbarras = prod.getCEAN();
+                    String ncm =  prod.getNCM();
+                    String cfop = prod.getCfop();
                     String cstA = icmsBase != null ? icmsBase.getOrig() : "N/A";
                     String cstB = icmsBase != null ? icmsBase.getCst() : "N/A";
                     Double icms = (icmsBase != null && icmsBase.getpICMS() != null )? icmsBase.getpICMS() : 0.0;
@@ -46,9 +51,10 @@ public class XmlReadExample {
                     Double ipi = ipitrib.getpIPI();
                     String uCom = prod.getUCom();
                     Double vFrete = (prod.getVFrete() != null ? prod.getVFrete() : 0.0);
-                                       
-                    //Cálculos
-                    DecimalFormat df = new DecimalFormat("#.00");
+                    Double qCom = (prod.getQCom() != null ? prod.getQCom() : 0.00);
+                    
+                    
+                    //Calc ICMS ST
                     Double vIPI = (ipi/100*vUnCom);
                     Double vProdNF = (vIPI+vUnCom);
                     Double vICMSproprio = ((vUnCom+vFrete)*icms/100);
@@ -58,16 +64,24 @@ public class XmlReadExample {
                     Double pSTsistema = (vICMSst/vUnCom)*100;
                     Double pSTprod = (vICMSst/(vProdNF))*100;
                     
+                    //Se tem MVA desconsiderar esse IF
+                    if (mva == 0.0){ 
+                        baseICMSst = 0.0;
+                        vICMSst = 0.0;
+                        vTotalProd = vProdNF;
+                        pSTsistema = pSTprod = 0.0;
+                    }
+                    
                     //adicionar um metodo para truncar valores
                     
                     ProdutoDetalhes produtoDetalhes = new ProdutoDetalhes(
-                                    prod.getXProd(),       // nome
-                                    prod.getCProd(),       // codigo
-                                    prod.getCEAN(),        // codigoEAN
-                                    prod.getNCM(),         // ncm
+                                    nome,       // nome
+                                    codigoProd,       // codigo
+                                    ccodbarras,        // codigoEAN
+                                    ncm,         // ncm
                                     cstA,                  // csta
                                     cstB,                  // cstb
-                                    prod.getCfop(),        // cfop
+                                    cfop,        // cfop
                                     uCom, //Unidade Comercializada
                                     vUnCom,                // precoUnitario
                                     vTotalProd,            // totalComImpostos
@@ -79,7 +93,8 @@ public class XmlReadExample {
                                     vICMSst,               // icmsst
                                     vProd,                 // vprod
                                     baseICMSst,             // baseicmsst
-                                    vFrete                 //Valor do Frete do produto
+                                    vFrete,                 //Valor do Frete do produto
+                                    qCom                    //Quantidade Comercializada
                                     );
                                     produtos.add(produtoDetalhes);
                                     }
