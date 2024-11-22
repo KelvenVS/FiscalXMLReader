@@ -1,46 +1,23 @@
 package fp.flamapar.xmlread.model.produto;
 
-import jakarta.xml.bind.annotation.XmlElement;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import lombok.Data;
+import lombok.Getter;
+
+@Data
 public class ICMS70 implements ICMSBase {
+    
+    @Getter(onMethod_ = {@XmlElement(name = "orig", namespace = "http://www.portalfiscal.inf.br/nfe")})
     private String orig;
+    
+    @Getter(onMethod_ = {@XmlElement(name = "CST", namespace = "http://www.portalfiscal.inf.br/nfe")})
     private String cst;
+    
+    @Getter(onMethod_ = {@XmlElement(name = "pICMS", namespace = "http://www.portalfiscal.inf.br/nfe")})
     private Double pICMS;
+    
+    @Getter(onMethod_ = {@XmlElement(name = "pMVAST", namespace = "http://www.portalfiscal.inf.br/nfe")})
     private Double pMVAST;
         
-    @XmlElement(name = "orig", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getOrig() {
-        return orig;
-    }
-
-    public void setOrig(String orig) {
-        this.orig = orig;
-    }
-
-    @XmlElement(name = "CST", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public String getCst() {
-        return cst;
-    }
-
-    public void setCst(String cst) {
-        this.cst = cst;
-    }
-
-    @XmlElement(name = "pICMS", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public Double getpICMS() {
-        return pICMS;
-    }
-
-    public void setpICMS(Double pICMS) {
-        this.pICMS = pICMS;
-    }
-    
-    @XmlElement(name = "pMVAST", namespace = "http://www.portalfiscal.inf.br/nfe")
-    public Double getpMVAST() {
-        return pMVAST;
-    }
-    
-    public void setpMVAST(Double pMVAST) {
-        this.pMVAST = pMVAST;
-    }
 }

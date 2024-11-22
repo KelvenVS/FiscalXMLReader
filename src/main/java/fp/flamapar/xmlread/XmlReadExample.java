@@ -44,8 +44,8 @@ public class XmlReadExample {
                     String cfop = prod.getCfop();
                     String cstA = icmsBase != null ? icmsBase.getOrig() : "N/A";
                     String cstB = icmsBase != null ? icmsBase.getCst() : "N/A";
-                    Double icms = (icmsBase != null && icmsBase.getpICMS() != null )? icmsBase.getpICMS() : 0.0;
-                    Double mva = (icmsBase != null && icmsBase.getpMVAST() != null) ? icmsBase.getpMVAST() : 0.0;
+                    Double icms = (icmsBase != null && icmsBase.getPICMS() != null )? icmsBase.getPICMS() : 0.0;
+                    Double mva = (icmsBase != null && icmsBase.getPMVAST() != null) ? icmsBase.getPMVAST() : 0.0;
                     Double vProd = prod.getVProd();
                     Double vUnCom = prod.getVUnCom();
                     Double ipi = ipitrib.getpIPI();
