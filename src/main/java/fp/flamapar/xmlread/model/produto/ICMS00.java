@@ -19,5 +19,11 @@ public class ICMS00 implements ICMSBase {
     
     @Getter(onMethod_ = {@XmlElement(name = "pMVAST", namespace = "http://www.portalfiscal.inf.br/nfe")})
     private Double pMVAST;
+    
+    @Getter(onMethod_ = {@XmlElement(name = "pRedBC", namespace = "http://www.portalfiscal.inf.br/nfe")})
+    private Double pRedBC;
+    
+    @Getter(onMethod_ = {@XmlElement(name = "pRedBCST", namespace = "http://www.portalfiscal.inf.br/nfe")})
+    private Double pRedBCST;
         
 }

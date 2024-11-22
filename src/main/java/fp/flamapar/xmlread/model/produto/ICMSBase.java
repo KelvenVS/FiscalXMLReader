@@ -5,5 +5,7 @@ public interface ICMSBase {
     String getCst();
     Double getPICMS();
     Double getPMVAST();
+    Double getPRedBC();
+    Double getPRedBCST();
 }
 

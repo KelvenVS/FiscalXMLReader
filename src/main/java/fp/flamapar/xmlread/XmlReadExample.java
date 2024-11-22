@@ -52,17 +52,26 @@ public class XmlReadExample {
                     String uCom = prod.getUCom();
                     Double vFrete = (prod.getVFrete() != null ? prod.getVFrete() : 0.0);
                     Double qCom = (prod.getQCom() != null ? prod.getQCom() : 0.00);
+                    Double pRedBC = (icmsBase != null && icmsBase.getPRedBC()!= null) ? icmsBase.getPRedBC() : 0.0;
+                    Double pRedBCST = (icmsBase != null && icmsBase.getPRedBCST()!= null) ? icmsBase.getPRedBCST() : 0.0;
                     
                     
                     //Calc ICMS ST
-                    Double vIPI = (ipi/100*vUnCom);
-                    Double vProdNF = (vIPI+vUnCom);
-                    Double vICMSproprio = ((vUnCom+vFrete)*icms/100);
-                    Double baseICMSst = ((vProdNF+vFrete)*(1+(mva/100)));
-                    Double vICMSst = (baseICMSst*icms/100-vICMSproprio);
-                    Double vTotalProd = (vProdNF+vICMSst);
-                    Double pSTsistema = (vICMSst/vUnCom)*100;
-                    Double pSTprod = (vICMSst/(vProdNF))*100;
+                    Double vIPI = (ipi/100 * vUnCom);
+                    Double vProdNF = (vIPI + vUnCom);
+                    Double vICMSproprio = (pRedBC == 0.0)  
+                            ? ((vUnCom + vFrete) * icms/100) 
+                            : (((vUnCom + vFrete) * icms/100) * (1 - pRedBC/100));
+                            
+                    Double baseICMSst = (pRedBCST == 0.0) 
+                            ? ((vProdNF + vFrete)*(1+(mva/100)))
+                            : ((vProdNF + vFrete)*(1+(mva/100)) * (1 - pRedBC/100));
+                    
+                    Double vICMSst = (baseICMSst * icms/100 - vICMSproprio);
+                    
+                    Double vTotalProd = (vProdNF + vICMSst);
+                    Double pSTsistema = (vICMSst / vUnCom) * 100;
+                    Double pSTprod = (vICMSst/vProdNF) * 100;
                     
                     //Se tem MVA desconsiderar esse IF
                     if (mva == 0.0){ 
