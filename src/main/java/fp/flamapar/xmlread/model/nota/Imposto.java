@@ -17,6 +17,9 @@ public class Imposto {
     
     @XmlElement(name = "IPI", namespace = "http://www.portalfiscal.inf.br/nfe")
     public IPI getIpi() {
+        if (ipi == null) {
+            return new IPI(); // Retorna um objeto IPI vazio
+        }
         return ipi;
     }
 
