@@ -1,39 +1,35 @@
 // ProdutoDetalhes.java
 package fp.flamapar.xmlread.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
+@Builder
 public class ProductDetails {
-    
-    private String nome , codigo , codigoEAN , ncm , csta , cstb , cfop , uCom;
+    private String nome ;
+    private String codigo ;
+    private String  codigoEAN ;
+    private String  ncm ;
+    private String  csta ;
+    private String  cstb ;
+    private String  cfop ;
+    private String  uCom;
 
-    private Double precoUnitario ,totalComImpostos , pIPI , vIPI , mva , stsist , st , icmsst , vprod ,baseicmsst , vFrete, qCom;
-
-    
-    // Construtor com todos os atributos
-    public ProductDetails(String nome, String codigo, String codigoEAN, String ncm, String csta, String cstb, String cfop,String uCom, Double precoUnitario, Double totalComImpostos, Double pIPI, Double vIPI, Double mva, Double stsist, Double st, Double icmsst, Double vprod, Double baseicmsst , Double vFrete, Double qCom) {
-        this.nome = nome;
-        this.codigo = codigo;
-        this.codigoEAN = codigoEAN;
-        this.ncm = ncm;
-        this.csta = csta;
-        this.cstb = cstb;
-        this.cfop = cfop;
-        this.uCom = uCom;
-        this.precoUnitario = precoUnitario;
-        this.totalComImpostos = totalComImpostos;
-        this.pIPI = pIPI;
-        this.vIPI = vIPI;
-        this.mva = mva;
-        this.stsist = stsist;
-        this.st = st;
-        this.icmsst = icmsst;
-        this.vprod = vprod;
-        this.baseicmsst = baseicmsst;
-        this.vFrete = vFrete;
-        this.qCom = qCom;
- }
+    private Double precoUnitario ;
+    private Double totalComImpostos ;
+    private Double  pIPI ;
+    private Double  vIPI ;
+    private Double  mva ;
+    private Double  stsist ;
+    private Double  st ;
+    private Double  icmsst ;
+    private Double  vprod ;
+    private Double baseicmsst ;
+    private Double  vFrete ;
+    private Double qCom;
     
     @Override
     public String toString() {
