@@ -88,28 +88,28 @@ public class ProductProcessor {
                     
                     //Adicionar um metodo para truncar valores
                     
-                    ProductDetails produtoDetalhes = new ProductDetails(
-                                    nome,       // nome
-                                    codigoProd,       // codigo
-                                    ccodbarras,        // codigoEAN
-                                    ncm,         // ncm
-                                    cstA,                  // csta
-                                    cstB,                  // cstb
-                                    cfop,        // cfop
-                                    uCom, //Unidade Comercializada
-                                    vUnCom,                // precoUnitario
-                                    vTotalProd,            // totalComImpostos
-                                    ipi,                   // pIPI
-                                    vIPI,                  // vIPI
-                                    mva,                   // mva
-                                    pSTsistema,            // stsist
-                                    pSTprod,               // st
-                                    vICMSst,               // icmsst
-                                    vProd,                 // vprod
-                                    baseICMSst,             // baseicmsst
-                                    vFrete,                 //Valor do Frete do produto
-                                    qCom                    //Quantidade Comercializada
-                                    );
+                            ProductDetails produtoDetalhes = ProductDetails.builder()
+                                    .nome(nome)
+                                    .codigo(codigoProd)
+                                    .codigoEAN(ccodbarras)
+                                    .ncm(ncm)
+                                    .csta(cstA)
+                                    .csta(cstB)
+                                    .cfop(cfop)
+                                    .uCom(uCom)
+                                    .precoUnitario(vUnCom)
+                                    .totalComImpostos(vTotalProd)
+                                    .pIPI(ipi)
+                                    .vIPI(vIPI)
+                                    .mva(mva)
+                                    .stsist(pSTsistema)
+                                    .st(pSTprod)
+                                    .icmsst(vICMSst)
+                                    .vprod(vProd)
+                                    .baseicmsst(baseICMSst)
+                                    .vFrete(vFrete)
+                                    .qCom(qCom)
+                                    .build();
                                     produtos.add(produtoDetalhes);
                                     }
                                 }
