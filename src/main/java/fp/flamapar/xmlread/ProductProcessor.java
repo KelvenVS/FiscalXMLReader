@@ -1,7 +1,7 @@
 package fp.flamapar.xmlread;
 
-import fp.flamapar.xmlread.model.ProdutoDetalhes;
-import fp.flamapar.xmlread.model.produto.ICMSBase;
+import fp.flamapar.xmlread.model.ProductDetails;
+import fp.flamapar.xmlread.model.icms.base.ICMSBase;
 import fp.flamapar.xmlread.model.produto.Prod;
 import fp.flamapar.xmlread.model.nota.Det;
 import fp.flamapar.xmlread.model.nota.NfeProc;
@@ -15,9 +15,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlReadExample {
-    public List<ProdutoDetalhes> loadProdutos(File file) {
-        List<ProdutoDetalhes> produtos = new ArrayList<>();
+public class ProductProcessor {
+    public List<ProductDetails> loadProdutos(File file) {
+        List<ProductDetails> produtos = new ArrayList<>();
         try {
             // Configurar JAXB para a classe raiz NfeProc
             JAXBContext context = JAXBContext.newInstance(NfeProc.class);
@@ -35,26 +35,31 @@ public class XmlReadExample {
                     IPITrib ipitrib = det.getImposto().getIpi().getIpitrib();
                     ICMSBase icmsBase = det.getImposto().getIcms().getICMSType();
 
-                    //Var
+                    //Variaveis do XML
                     
-                    String nome = prod.getXProd();
+                    //<Prod>
+                    String nome = prod.getXProd(); 
                     String codigoProd = prod.getCProd();
                     String ccodbarras = prod.getCEAN();
                     String ncm =  prod.getNCM();
                     String cfop = prod.getCfop();
+                    Double vProd = prod.getVProd();
+                    Double vUnCom = prod.getVUnCom();
+                    String uCom = prod.getUCom();                    
+                    Double vFrete = (prod.getVFrete() != null ? prod.getVFrete() : 0.0);
+                    Double qCom = (prod.getQCom() != null ? prod.getQCom() : 0.00);
+                    
+                    //<icms>
                     String cstA = icmsBase != null ? icmsBase.getOrig() : "N/A";
                     String cstB = icmsBase != null ? icmsBase.getCst() : "N/A";
                     Double icms = (icmsBase != null && icmsBase.getPICMS() != null )? icmsBase.getPICMS() : 0.0;
                     Double mva = (icmsBase != null && icmsBase.getPMVAST() != null) ? icmsBase.getPMVAST() : 0.0;
-                    Double vProd = prod.getVProd();
-                    Double vUnCom = prod.getVUnCom();
-                    Double ipi = ipitrib.getpIPI();
-                    String uCom = prod.getUCom();
-                    Double vFrete = (prod.getVFrete() != null ? prod.getVFrete() : 0.0);
-                    Double qCom = (prod.getQCom() != null ? prod.getQCom() : 0.00);
                     Double pRedBC = (icmsBase != null && icmsBase.getPRedBC()!= null) ? icmsBase.getPRedBC() : 0.0;
-                    Double pRedBCST = (icmsBase != null && icmsBase.getPRedBCST()!= null) ? icmsBase.getPRedBCST() : 0.0;
+                    Double pRedBCST = (icmsBase != null && icmsBase.getPRedBCST()!= null) ? icmsBase.getPRedBCST() : 0.0;                   
                     
+                    //<ipi>
+                    Double ipi = ipitrib.getpIPI();
+
                     
                     //Calc ICMS ST
                     Double vIPI = (ipi/100 * vUnCom);
@@ -81,9 +86,9 @@ public class XmlReadExample {
                         pSTsistema = pSTprod = 0.0;
                     }
                     
-                    //adicionar um metodo para truncar valores
+                    //Adicionar um metodo para truncar valores
                     
-                    ProdutoDetalhes produtoDetalhes = new ProdutoDetalhes(
+                    ProductDetails produtoDetalhes = new ProductDetails(
                                     nome,       // nome
                                     codigoProd,       // codigo
                                     ccodbarras,        // codigoEAN

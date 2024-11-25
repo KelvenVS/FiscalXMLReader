@@ -1,6 +1,6 @@
 package fp.flamapar.xmlread;
 
-import fp.flamapar.xmlread.model.ProdutoDetalhes;
+import fp.flamapar.xmlread.model.ProductDetails;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.util.List; // Para manipular múltiplos arquivos
 
 public class ProductViewer extends JFrame {
 
-    private JList<ProdutoDetalhes> productList;
+    private JList<ProductDetails> productList;
     // Declaração dos JLabels para cada atributo de ProdutoDetalhes
     private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelTotal, labelpIPI, labelvIPI,labelCsta, labelCstb, labelCfop, labelMva, labelStsist, labelSt, labelIcmsst, labelUcom, labelBaseicmsst;
     
@@ -26,7 +26,7 @@ public class ProductViewer extends JFrame {
         // Adiciona um listener à lista para atualizar os detalhes ao clicar
         productList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) { // Evita múltiplas notificações durante uma única seleção
-                ProdutoDetalhes selectedProduct = productList.getSelectedValue();
+                ProductDetails selectedProduct = productList.getSelectedValue();
                 showProductDetails(selectedProduct);
             }
         });
@@ -231,7 +231,7 @@ public class ProductViewer extends JFrame {
     DecimalFormat df = new DecimalFormat();
     
     // Atualiza o Produto ao clicar
-    private void showProductDetails(ProdutoDetalhes produto) {
+    private void showProductDetails(ProductDetails produto) {
         if (produto != null) {
             textNome.setText(produto.getNome());
             //System.out.println(produto.getNome());
@@ -298,10 +298,10 @@ public class ProductViewer extends JFrame {
         }
         
     private void processXmlFile(File file) {
-        XmlReadExample xmlReadExample = new XmlReadExample();
+        ProductProcessor xmlReadExample = new ProductProcessor();
         try {
             // Atualiza a lista de produtos
-            List<ProdutoDetalhes> produtos = xmlReadExample.loadProdutos(file);
+            List<ProductDetails> produtos = xmlReadExample.loadProdutos(file);
 
             // Verifique se productList não é nula antes de usá-la
             if (productList == null) {
@@ -309,7 +309,7 @@ public class ProductViewer extends JFrame {
             }
 
             // Atualiza a JList
-            productList.setListData(produtos.toArray(new ProdutoDetalhes[0]));
+            productList.setListData(produtos.toArray(new ProductDetails[0]));
 
             JOptionPane.showMessageDialog(this, "Arquivo XML processado com sucesso!");
         } catch (Exception ex) {

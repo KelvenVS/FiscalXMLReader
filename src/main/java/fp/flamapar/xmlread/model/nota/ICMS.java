@@ -1,15 +1,15 @@
 package fp.flamapar.xmlread.model.nota;
 
-import fp.flamapar.xmlread.model.produto.ICMSBase;
-import fp.flamapar.xmlread.model.produto.ICMS00;
-import fp.flamapar.xmlread.model.produto.ICMS10;
-import fp.flamapar.xmlread.model.produto.ICMS20;
-import fp.flamapar.xmlread.model.produto.ICMS30;
-import fp.flamapar.xmlread.model.produto.ICMS40;
-import fp.flamapar.xmlread.model.produto.ICMS51;
-import fp.flamapar.xmlread.model.produto.ICMS60;
-import fp.flamapar.xmlread.model.produto.ICMS70;
-import fp.flamapar.xmlread.model.produto.ICMS90;
+import fp.flamapar.xmlread.model.icms.base.ICMSBase;
+import fp.flamapar.xmlread.model.icms.impl.ICMS00;
+import fp.flamapar.xmlread.model.icms.impl.ICMS10;
+import fp.flamapar.xmlread.model.icms.impl.ICMS20;
+import fp.flamapar.xmlread.model.icms.impl.ICMS30;
+import fp.flamapar.xmlread.model.icms.impl.ICMS40;
+import fp.flamapar.xmlread.model.icms.impl.ICMS51;
+import fp.flamapar.xmlread.model.icms.impl.ICMS60;
+import fp.flamapar.xmlread.model.icms.impl.ICMS70;
+import fp.flamapar.xmlread.model.icms.impl.ICMS90;
 
 import jakarta.xml.bind.annotation.XmlElement;
 
