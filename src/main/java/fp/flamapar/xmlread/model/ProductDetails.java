@@ -25,8 +25,9 @@ public class ProductDetails {
     private Double mva ;
     private Double stsist ;
     private Double st ;
-    private Double icms;
-    private Double icmsst ;
+    private Double picms;
+    private Double picmsst;
+    private Double vicmsst ;
     private Double vprod ;
     private Double baseicmsst ;
     private Double vFrete ;

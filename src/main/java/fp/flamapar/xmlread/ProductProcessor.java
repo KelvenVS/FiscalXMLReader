@@ -52,7 +52,8 @@ public class ProductProcessor {
                     //<icms>
                     String cstA = icmsBase != null ? icmsBase.getOrig() : "N/A";
                     String cstB = icmsBase != null ? icmsBase.getCst() : "N/A";
-                    Double icms = (icmsBase != null && icmsBase.getPICMS() != null )? icmsBase.getPICMS() : 0.0;
+                    Double picms = (icmsBase != null && icmsBase.getPICMS() != null )? icmsBase.getPICMS() : 0.0;
+                    Double picmsst = (icmsBase != null && icmsBase.getPICMSST() != null )? icmsBase.getPICMSST() : 0.0;
                     Double mva = (icmsBase != null && icmsBase.getPMVAST() != null) ? icmsBase.getPMVAST() : 0.0;
                     Double pRedBC = (icmsBase != null && icmsBase.getPRedBC()!= null) ? icmsBase.getPRedBC() : 0.0;
                     Double pRedBCST = (icmsBase != null && icmsBase.getPRedBCST()!= null) ? icmsBase.getPRedBCST() : 0.0;                   
@@ -64,17 +65,20 @@ public class ProductProcessor {
                     //Calc ICMS ST
                     Double vIPI = (ipi/100 * vUnCom);
                     Double vProdNF = (vIPI + vUnCom);
-                    Double vICMSproprio = (pRedBC == 0.0)  
-                            ? ((vUnCom + vFrete) * icms/100) 
-                            : (((vUnCom + vFrete) * icms/100) * (1 - pRedBC/100));
-                            
-                    Double baseICMSst = (pRedBCST == 0.0) 
-                            ? ((vProdNF + vFrete)*(1+(mva/100)))
-                            : ((vProdNF + vFrete)*(1+(mva/100)) * (1 - pRedBC/100));
                     
-                    Double vICMSst = (baseICMSst * icms/100 - vICMSproprio);
+                    Double vICMSproprio = 0.0;
+                    Double baseICMSst = 0.0;
                     
-                    Double vTotalProd = (vProdNF + vICMSst);
+                    if (pRedBC == 0.0) {
+                    vICMSproprio = ((vUnCom + vFrete) * picms/100);
+                    baseICMSst = (vProdNF + vFrete)*(1+(mva/100));
+                    }else{
+                    vICMSproprio = ((vUnCom + vFrete) * picms/100) * (1 - pRedBC/100);
+                    baseICMSst = (vProdNF + vFrete)*(1+(mva/100)) * (1 - pRedBC/100);
+                    }
+                    
+                    Double vICMSst = (baseICMSst * picms/100 - vICMSproprio);
+                    Double vTotalProd = (vProdNF + vFrete + vICMSst);
                     Double pSTsistema = (vICMSst / vUnCom) * 100;
                     Double pSTprod = (vICMSst/vProdNF) * 100;
                     
@@ -104,8 +108,8 @@ public class ProductProcessor {
                                     .mva(mva)
                                     .stsist(pSTsistema)
                                     .st(pSTprod)
-                                    .icms(icms)
-                                    .icmsst(vICMSst)
+                                    .picms(picms)
+                                    .vicmsst(vICMSst)
                                     .vprod(vProd)
                                     .baseicmsst(baseICMSst)
                                     .vFrete(vFrete)
