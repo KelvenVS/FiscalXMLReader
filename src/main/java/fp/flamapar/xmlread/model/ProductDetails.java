@@ -11,24 +11,25 @@ import lombok.Data;
 public class ProductDetails {
     private String nome ;
     private String codigo ;
-    private String  codigoEAN ;
-    private String  ncm ;
-    private String  csta ;
-    private String  cstb ;
-    private String  cfop ;
-    private String  uCom;
+    private String codigoEAN ;
+    private String ncm ;
+    private String csta ;
+    private String cstb ;
+    private String cfop ;
+    private String uCom;
 
     private Double precoUnitario ;
     private Double totalComImpostos ;
-    private Double  pIPI ;
-    private Double  vIPI ;
-    private Double  mva ;
-    private Double  stsist ;
-    private Double  st ;
-    private Double  icmsst ;
-    private Double  vprod ;
+    private Double pIPI ;
+    private Double vIPI ;
+    private Double mva ;
+    private Double stsist ;
+    private Double st ;
+    private Double icms;
+    private Double icmsst ;
+    private Double vprod ;
     private Double baseicmsst ;
-    private Double  vFrete ;
+    private Double vFrete ;
     private Double qCom;
     
     @Override

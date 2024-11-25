@@ -59,7 +59,7 @@ public class ProductProcessor {
                     
                     //<ipi>
                     Double ipi = ipitrib.getpIPI();
-
+                    
                     
                     //Calc ICMS ST
                     Double vIPI = (ipi/100 * vUnCom);
@@ -94,7 +94,7 @@ public class ProductProcessor {
                                     .codigoEAN(ccodbarras)
                                     .ncm(ncm)
                                     .csta(cstA)
-                                    .csta(cstB)
+                                    .cstb(cstB)
                                     .cfop(cfop)
                                     .uCom(uCom)
                                     .precoUnitario(vUnCom)
@@ -104,6 +104,7 @@ public class ProductProcessor {
                                     .mva(mva)
                                     .stsist(pSTsistema)
                                     .st(pSTprod)
+                                    .icms(icms)
                                     .icmsst(vICMSst)
                                     .vprod(vProd)
                                     .baseicmsst(baseICMSst)
