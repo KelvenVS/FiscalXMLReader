@@ -1,8 +1,13 @@
 // ProdutoDetalhes.java
 package fp.flamapar.xmlread.model;
 
+import lombok.Data;
+
+@Data
 public class ProductDetails {
+    
     private String nome , codigo , codigoEAN , ncm , csta , cstb , cfop , uCom;
+
     private Double precoUnitario ,totalComImpostos , pIPI , vIPI , mva , stsist , st , icmsst , vprod ,baseicmsst , vFrete, qCom;
 
     
@@ -30,28 +35,6 @@ public class ProductDetails {
         this.qCom = qCom;
  }
     
-    public String getNome() { return nome; }
-    public String getCodigo() { return codigo; }
-    public String getCodigoEAN() { return codigoEAN; }
-    public String getNcm() { return ncm; }
-    public Double getPrecoUnitario() { return precoUnitario; }
-    public Double getTotalComImpostos() { return totalComImpostos; }
-    public Double getpIPI() { return pIPI; }
-    public Double getvIPI() { return vIPI; }
-    public String getCsta() { return csta; }
-    public String getCstb() { return cstb; }
-    public String getCfop() { return cfop; }
-    public String getUCom() { return uCom; }
-    public Double getMva() { return mva; }
-    public Double getStsist() { return stsist; }
-    public Double getSt() { return st; }
-    public Double getIcmsst() { return icmsst; }
-    public Double getVprod() { return vprod; }
-    public Double getBaseicmsst() { return baseicmsst; }
-    public Double getvFrete() { return vFrete; }
-    public Double getQCom() { return qCom; }
-    
-
     @Override
     public String toString() {
         return nome + " (" + codigo + ")";

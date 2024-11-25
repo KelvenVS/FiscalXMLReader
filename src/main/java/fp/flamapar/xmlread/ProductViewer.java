@@ -239,12 +239,12 @@ public class ProductViewer extends JFrame {
             df.applyPattern("R$ #,##0.00");
             textPrecoUnit.setText(df.format(produto.getPrecoUnitario()));
             textTotal.setText(df.format(produto.getTotalComImpostos()));
-            textvIPI.setText(df.format(produto.getvIPI()));
+            textvIPI.setText(df.format(produto.getVIPI()));
             textIcmsst.setText(df.format(produto.getIcmsst()));
             
             
             df.applyPattern("##0.00");
-            textpIPI.setText(df.format(produto.getpIPI()));
+            textpIPI.setText(df.format(produto.getVIPI()));
             textStsist.setText(df.format(produto.getStsist()));
             textSt.setText(df.format(produto.getSt()));
             
