@@ -1,6 +1,7 @@
 package fp.flamapar.xmlread;
 
 import fp.flamapar.xmlread.model.ProductDetails;
+import fp.flamapar.xmlread.model.ProductDetailsViewer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.util.List; // Para manipular múltiplos arquivos
 
 public class ProductViewer extends JFrame {
 
-    private JList<ProductDetails> productList;
+    private JList<ProductDetails> productList;   
     // Declaração dos JLabels para cada atributo de ProdutoDetalhes
     private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelTotal, labelpIPI, labelvIPI,labelCsta, labelCstb, labelCfop, labelMva, labelStsist, labelSt, labelIcmsst, labelUcom, labelBaseicmsst;
     
@@ -298,10 +299,12 @@ public class ProductViewer extends JFrame {
         }
         
     private void processXmlFile(File file) {
-        ProductProcessor xmlReadExample = new ProductProcessor();
+        XmlParser xmlReadExample = new XmlParser();
+        //ProductProcessor xmlReadExample = new ProductProcessor();
         try {
             // Atualiza a lista de produtos
-            List<ProductDetails> produtos = xmlReadExample.loadProdutos(file);
+            List<ProductDetails> produtos = xmlReadExample.parseXml(file);
+            //List<ProductDetails> produtos = xmlReadExample.loadProdutos(file);
 
             // Verifique se productList não é nula antes de usá-la
             if (productList == null) {
