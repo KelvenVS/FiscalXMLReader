@@ -67,7 +67,9 @@ public class ProductProcessor {
         Double vICMSproprio = 0.0;
         Double baseICMSst = 0.0;
 
-        System.out.println(tipoCalc(mva, picms, picmsst, pRedBCST));
+        String caso = tipoCalc(mva, picms, picmsst, pRedBCST);
+        System.out.println(caso);
+        processarCalculo(caso , mva, picms, picmsst, pRedBC);
         
         if (pRedBC == 0.0) {
         vICMSproprio = ((vUnCom + vFrete) * picms/100);
@@ -145,5 +147,40 @@ public String tipoCalc(Double mva , Double picms , Double picmsst , Double pRedB
     }
     return caso;
     }
+
+public void processarCalculo(String caso , Double mva, Double picms, Double picmsst, Double pRedBC) {
+    switch (caso) {
+        case "SEM_ST":
+            System.out.println("Processando cálculo sem ST...");
+            // Lógica específica para SEM_ST
+            break;
+        
+        case "INTERESTADUAL_SEM_REDUCAO":
+            System.out.println("Processando cálculo interestadual sem redução...");
+            // Lógica específica para INTERESTADUAL_SEM_REDUCAO
+            break;
+        
+        case "INTERESTADUAL_COM_REDUCAO":
+            System.out.println("Processando cálculo interestadual com redução...");
+            // Lógica específica para INTERESTADUAL_COM_REDUCAO
+            break;
+        
+        case "ESTADUAL_SEM_REDUCAO":
+            System.out.println("Processando cálculo estadual sem redução...");
+            // Lógica específica para ESTADUAL_SEM_REDUCAO
+            break;
+        
+        case "ESTADUAL_COM_REDUCAO":
+            System.out.println("Processando cálculo estadual com redução...");
+            // Lógica específica para ESTADUAL_COM_REDUCAO
+            break;
+        
+        default:
+            System.out.println("Caso não identificado.");
+            // Lógica padrão, se necessário
+            break;
+    }
+}
+
 }
                     
