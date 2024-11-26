@@ -67,9 +67,6 @@ public class ProductProcessor {
         Double vICMSproprio = 0.0;
         Double baseICMSst = 0.0;
 
-        String caso = tipoCalc(mva, picms, picmsst, pRedBCST);
-        System.out.println(caso);
-        processarCalculo(caso , mva, picms, picmsst, pRedBC);
         
         if (pRedBC == 0.0) {
         vICMSproprio = ((vUnCom + vFrete) * picms/100);
@@ -126,61 +123,5 @@ public class ProductProcessor {
         return produtos;
     }
     
-public String tipoCalc(Double mva , Double picms , Double picmsst , Double pRedBC){
-    String caso;
-    
-    int nova_mva = mva.intValue();
-    int nova_picms = picms.intValue();
-    int nova_picmsst = picmsst.intValue();
-    int nova_predbc = pRedBC.intValue();
-    
-    // Determina o caso
-    if (nova_mva == 0) {
-        caso = "SEM_ST"; // Sem MVA
-    
-    } else if (nova_picms != nova_picmsst) {
-        caso = (nova_predbc == 0) ? "INTERESTADUAL_SEM_REDUCAO" : "INTERESTADUAL_COM_REDUCAO";
-        
-    } else {
-        caso = (nova_predbc == 0) ? "ESTADUAL_SEM_REDUCAO" : "ESTADUAL_COM_REDUCAO";
-        
-    }
-    return caso;
-    }
-
-public void processarCalculo(String caso , Double mva, Double picms, Double picmsst, Double pRedBC) {
-    switch (caso) {
-        case "SEM_ST":
-            System.out.println("Processando cálculo sem ST...");
-            // Lógica específica para SEM_ST
-            break;
-        
-        case "INTERESTADUAL_SEM_REDUCAO":
-            System.out.println("Processando cálculo interestadual sem redução...");
-            // Lógica específica para INTERESTADUAL_SEM_REDUCAO
-            break;
-        
-        case "INTERESTADUAL_COM_REDUCAO":
-            System.out.println("Processando cálculo interestadual com redução...");
-            // Lógica específica para INTERESTADUAL_COM_REDUCAO
-            break;
-        
-        case "ESTADUAL_SEM_REDUCAO":
-            System.out.println("Processando cálculo estadual sem redução...");
-            // Lógica específica para ESTADUAL_SEM_REDUCAO
-            break;
-        
-        case "ESTADUAL_COM_REDUCAO":
-            System.out.println("Processando cálculo estadual com redução...");
-            // Lógica específica para ESTADUAL_COM_REDUCAO
-            break;
-        
-        default:
-            System.out.println("Caso não identificado.");
-            // Lógica padrão, se necessário
-            break;
-    }
-}
-
 }
                     
