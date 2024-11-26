@@ -245,7 +245,7 @@ public class ProductViewer extends JFrame {
             
             
             df.applyPattern("##0.00");
-            textpIPI.setText(df.format(produto.getVIPI()));
+            textpIPI.setText(df.format(produto.getPIPI()));
             textStsist.setText(df.format(produto.getStsist()));
             textSt.setText(df.format(produto.getSt()));
             
