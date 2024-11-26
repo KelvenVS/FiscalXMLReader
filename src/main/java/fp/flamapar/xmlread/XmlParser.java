@@ -31,7 +31,7 @@ public class XmlParser {
                     Prod prod = det.getProd();
                     IPITrib ipitrib = det.getImposto().getIpi().getIpitrib();
                     ICMSBase icmsBase = det.getImposto().getIcms().getICMSType();
-
+                                       
                     // Cria um objeto ProductDetails básico, apenas com dados extraídos
                     ProductDetails produtoDetalhes = ProductDetails.builder()
                             .nome(prod.getXProd())
@@ -52,16 +52,14 @@ public class XmlParser {
                             .stsist(0.0)
                             .st(0.0)
                             .picms((icmsBase != null && icmsBase.getPICMS() != null )? icmsBase.getPICMS() : 0.0)
-                            .picmsst(0.0)
+                            .picmsst((icmsBase != null && icmsBase.getPICMSST() != null )? icmsBase.getPICMSST(): 0.0)
                             .vicmsst(0.0)
                             .vprod(prod.getVProd())
                             .baseicmsst(0.0)
                             .vFrete((prod.getVFrete() != null ? prod.getVFrete() : 0.0))
                             .qCom((prod.getQCom() != null ? prod.getQCom() : 0.00))
                             .build();
-
                     produtos.add(produtoDetalhes);
-                    
                 }
             }
         } catch (JAXBException e) {

@@ -43,35 +43,74 @@ public static String tipoCalc(Double mva , Double picms , Double picmsst , Doubl
 }    
     
 public static void processarCalculo(String caso , ProductDetails produto) {
+    //Var do Objeto
+    Double vOperacao;
+    Double vProduto = produto.getPrecoUnitario();
+    Double vFrete =  produto.getVFrete();
+    Double pRedBC = produto.getPRedBC();
+    Double pRedBCST = produto.getPRedBCST();
+    Double pMVA = produto.getMva();
+    Double pIPI = produto.getPIPI()/100;
+    Double vIPI =  pIPI * vProduto;
+    Double pICMS = produto.getPicms();
+    
+    //Variáveis cálculo
+    Double vTotalComImposto;
+    Double vICMSproprio;
+    Double baseICMSST;
+    Double vICMSST;
+    Double pSTsist;
+    Double pSTprod;
+    
     switch (caso) {
         case "SEM_ST":
-            System.out.println("Processando cálculo sem ST...");
-            String ccodbarra = produto.getCodigoEAN();
-            System.out.println(ccodbarra);
-            produto.setCodigoEAN("12345678");
-            ccodbarra = produto.getCodigoEAN();
-            System.out.println(ccodbarra);
+                vTotalComImposto = (vProduto + vIPI + vFrete);
+                produto.setTotalComImpostos(vTotalComImposto);
+                produto.setVIPI(vIPI);
+                produto.setBaseicmsst(0.0);
+                produto.setVicmsst(0.0);
+                produto.setPicmsst(0.0);
+                produto.setPicms(0.0);
             break;
         
+        case "ESTADUAL_SEM_REDUCAO":
+                // Lógica específica para ESTADUAL_SEM_REDUCAO
+                //System.out.println("Processando cálculo estadual sem redução...");
+                vICMSproprio = (vProduto + vFrete) * pICMS/100;
+                
+                baseICMSST = (vProduto + vIPI) * (1+(pMVA/100));
+                produto.setBaseicmsst(baseICMSST);
+                
+                vICMSST = baseICMSST * pICMS/100 - vICMSproprio;
+                produto.setVicmsst(vICMSST);
+                
+                vTotalComImposto = (vProduto + vIPI + vICMSST);
+                produto.setTotalComImpostos(vTotalComImposto);
+                
+                pSTprod = (vICMSST/(vProduto + vIPI))*100;
+                produto.setSt(pSTprod);
+                
+                pSTsist = (vICMSST/vProduto)*100;
+                produto.setStsist(pSTsist);
+            break;
+
+        case "ESTADUAL_COM_REDUCAO":
+                // Lógica específica para ESTADUAL_COM_REDUCAO
+                //System.out.println("Processando cálculo estadual com redução...");
+            break;    
+            
+            
         case "INTERESTADUAL_SEM_REDUCAO":
-            System.out.println("Processando cálculo interestadual sem redução...");
+            //System.out.println("Processando cálculo interestadual sem redução...");
             // Lógica específica para INTERESTADUAL_SEM_REDUCAO
             break;
         
         case "INTERESTADUAL_COM_REDUCAO":
-            System.out.println("Processando cálculo interestadual com redução...");
+            //System.out.println("Processando cálculo interestadual com redução...");
             // Lógica específica para INTERESTADUAL_COM_REDUCAO
             break;
         
-        case "ESTADUAL_SEM_REDUCAO":
-            System.out.println("Processando cálculo estadual sem redução...");
-            // Lógica específica para ESTADUAL_SEM_REDUCAO
-            break;
-        
-        case "ESTADUAL_COM_REDUCAO":
-            System.out.println("Processando cálculo estadual com redução...");
-            // Lógica específica para ESTADUAL_COM_REDUCAO
-            break;
+
         
         default:
             System.out.println("Caso não identificado.");
