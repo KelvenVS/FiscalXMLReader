@@ -1,5 +1,6 @@
 package fp.flamapar.xmlread;
 
+import fp.flamapar.xmlread.calculator.CalculatorICMSST;
 import fp.flamapar.xmlread.model.ProductDetailsViewer;
 import fp.flamapar.xmlread.model.ProductDetails;
 import fp.flamapar.xmlread.model.icms.base.ICMSBase;
@@ -44,7 +45,7 @@ public class XmlParser {
                             .precoUnitario(prod.getVUnCom())
                             .totalComImpostos(0.0)
                             .pIPI(ipitrib.getpIPI())
-                            .vIPI(99.99)
+                            .vIPI(0.0)
                             .mva((icmsBase != null && icmsBase.getPMVAST() != null) ? icmsBase.getPMVAST() : 0.0)
                             .pRedBC((icmsBase != null && icmsBase.getPRedBC()!= null) ? icmsBase.getPRedBC() : 0.0)
                             .pRedBCST((icmsBase != null && icmsBase.getPRedBCST()!= null) ? icmsBase.getPRedBCST() : 0.0)
@@ -60,12 +61,14 @@ public class XmlParser {
                             .build();
 
                     produtos.add(produtoDetalhes);
+                    
                 }
             }
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        ProductDetailsViewer.showProducts(produtos);
+        //ProductDetailsViewer.showProducts(produtos);
+        CalculatorICMSST.Calculator(produtos);
         return produtos;
     }
 }
