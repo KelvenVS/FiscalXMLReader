@@ -53,6 +53,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
     Double pIPI = produto.getPIPI()/100;
     Double vIPI =  pIPI * vProduto;
     Double pICMS = produto.getPicms();
+    Double pICMSST = produto.getPicmsst();
     
     //Variáveis cálculo
     Double vTotalComImposto;
@@ -61,6 +62,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
     Double vICMSST;
     Double pSTsist;
     Double pSTprod;
+    Double vICMSdestino;
     
     switch (caso) {
         case "SEM_ST":
@@ -124,6 +126,27 @@ public static void processarCalculo(String caso , ProductDetails produto) {
         case "INTERESTADUAL_SEM_REDUCAO":
             //System.out.println("Processando cálculo interestadual sem redução...");
             // Lógica específica para INTERESTADUAL_SEM_REDUCAO
+            
+            produto.setVIPI(vIPI);
+
+            vICMSproprio = (vProduto + vFrete) * pICMS/100;
+
+            baseICMSST = ( (vProduto + vIPI) * pMVA/100 ) + (vProduto + vIPI);
+            produto.setBaseicmsst(baseICMSST);
+            
+            vICMSdestino = baseICMSST * pICMSST/100;
+            
+            vICMSST = vICMSdestino - vICMSproprio;
+            produto.setVicmsst(vICMSST);
+
+            vTotalComImposto = (vProduto + vIPI + vICMSST);
+            produto.setTotalComImpostos(vTotalComImposto);
+
+            pSTprod = (vICMSST/(vProduto + vIPI))*100;
+            produto.setSt(pSTprod);
+
+            pSTsist = (vICMSST/vProduto)*100;
+            produto.setStsist(pSTsist);
             break;
         
         case "INTERESTADUAL_COM_REDUCAO":
