@@ -64,6 +64,8 @@ public static void processarCalculo(String caso , ProductDetails produto) {
     Double pSTprod;
     Double vICMSdestino;
     
+    Double baseICMS;
+    
     switch (caso) {
         case "SEM_ST":
                 vTotalComImposto = (vProduto + vIPI + vFrete);
@@ -153,6 +155,27 @@ public static void processarCalculo(String caso , ProductDetails produto) {
         case "INTERESTADUAL_COM_REDUCAO":
             //System.out.println("Processando cálculo interestadual com redução...");
             // Lógica específica para INTERESTADUAL_COM_REDUCAO
+            
+            produto.setVIPI(vIPI);
+
+            baseICMS = (vProduto + vFrete)*(1-(pRedBC/100));
+            vICMSproprio = baseICMS * pICMS/100;
+            
+            baseICMSST = ( (vProduto + vIPI + vFrete) * (1 + pMVA/100) ) * (1 - (pRedBCST/100));
+            Double ICMSsobreST = (baseICMSST * pICMSST/100);
+            produto.setBaseicmsst(baseICMSST);
+            vICMSST = (ICMSsobreST - vICMSproprio);
+            produto.setVicmsst(vICMSST);
+                       
+
+            vTotalComImposto = (vProduto + vIPI + vICMSST);
+            produto.setTotalComImpostos(vTotalComImposto);
+
+            pSTprod = (vICMSST/(vProduto + vIPI))*100;
+            produto.setSt(pSTprod);
+
+            pSTsist = (vICMSST/vProduto)*100;
+            produto.setStsist(pSTsist);
             break;
         
 

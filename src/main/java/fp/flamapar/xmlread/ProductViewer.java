@@ -248,6 +248,7 @@ public class ProductViewer extends JFrame {
             textpIPI.setText(df.format(produto.getPIPI()));
             textStsist.setText(df.format(produto.getStsist()));
             textSt.setText(df.format(produto.getSt()));
+            textBaseicmsst.setText(df.format(produto.getBaseicmsst()));
             
             textCodigo.setText(produto.getCodigo());
             textCodigoEAN.setText(produto.getCodigoEAN());
@@ -261,8 +262,7 @@ public class ProductViewer extends JFrame {
             
             textUcom.setText(String.valueOf(produto.getQCom() + " x "+ produto.getUCom()));
             //System.out.println(produto.getUCom());
-            
-            textBaseicmsst.setText(String.valueOf(produto.getBaseicmsst()));
+
         }
     }
     
