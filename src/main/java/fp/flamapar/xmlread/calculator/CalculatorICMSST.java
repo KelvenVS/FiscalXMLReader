@@ -82,7 +82,8 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 
                 vICMSproprio = (vProduto + vFrete) * pICMS/100;
                 
-                baseICMSST = (vProduto + vIPI) * (1+(pMVA/100));
+                //Verificar alterações de frete em todas basesde ICMS
+                baseICMSST = (vProduto + vIPI + vFrete) * (1+(pMVA/100));
                 produto.setBaseicmsst(baseICMSST);
                 
                 vICMSST = baseICMSST * pICMS/100 - vICMSproprio;
@@ -105,7 +106,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 
                 vICMSproprio = ((vProduto + vFrete) * pICMS/100 ) * ( 1 - pRedBC/100);
                 
-                baseICMSST = ((vProduto + vIPI) * (1+(pMVA/100) ) * ( 1 - pRedBCST/100));
+                baseICMSST = ((vProduto + vIPI + vFrete) * (1+(pMVA/100) ) * ( 1 - pRedBCST/100));
                 produto.setBaseicmsst(baseICMSST);
                 
                 vICMSST = baseICMSST * pICMS/100 - vICMSproprio;
@@ -131,7 +132,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
 
             vICMSproprio = (vProduto + vFrete) * pICMS/100;
 
-            baseICMSST = ( (vProduto + vIPI) * pMVA/100 ) + (vProduto + vIPI);
+            baseICMSST = ( (vProduto + vIPI + vFrete) * pMVA/100 ) + (vProduto + vIPI);
             produto.setBaseicmsst(baseICMSST);
             
             vICMSdestino = baseICMSST * pICMSST/100;
