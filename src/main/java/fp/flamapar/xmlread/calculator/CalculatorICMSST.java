@@ -46,14 +46,16 @@ public static void processarCalculo(String caso , ProductDetails produto) {
     //Var do Objeto
     Double vOperacao;
     Double vProduto = produto.getPrecoUnitario();
-    Double vFrete =  produto.getVFrete();
+    Double vFrete =  produto.getVFrete()/produto.getQCom();
     Double pRedBC = produto.getPRedBC();
     Double pRedBCST = produto.getPRedBCST();
     Double pMVA = produto.getMva();
     Double pIPI = produto.getPIPI()/100;
-    Double vIPI =  pIPI * vProduto;
+    Double vIPI =  pIPI * (vProduto + vFrete);
     Double pICMS = produto.getPicms();
     Double pICMSST = produto.getPicmsst();
+    
+    pRedBCST = (pRedBCST == 0 ? pRedBCST = pRedBC : pRedBCST);
     
     //Variáveis cálculo
     Double vTotalComImposto;
@@ -91,7 +93,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 vICMSST = baseICMSST * pICMS/100 - vICMSproprio;
                 produto.setVicmsst(vICMSST);
                 
-                vTotalComImposto = (vProduto + vIPI + vICMSST);
+                vTotalComImposto = (vProduto + vIPI + vICMSST + vFrete);
                 produto.setTotalComImpostos(vTotalComImposto);
                 
                 pSTprod = (vICMSST/(vProduto + vIPI))*100;
@@ -114,7 +116,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 vICMSST = baseICMSST * pICMS/100 - vICMSproprio;
                 produto.setVicmsst(vICMSST);
                 
-                vTotalComImposto = (vProduto + vIPI + vICMSST);
+                vTotalComImposto = (vProduto + vIPI + vICMSST + vFrete);
                 produto.setTotalComImpostos(vTotalComImposto);
                 
                 pSTprod = (vICMSST/(vProduto + vIPI))*100;
@@ -142,7 +144,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 vICMSST = vICMSdestino - vICMSproprio;
                 produto.setVicmsst(vICMSST);
 
-                vTotalComImposto = (vProduto + vIPI + vICMSST);
+                vTotalComImposto = (vProduto + vIPI + vICMSST + vFrete);
                 produto.setTotalComImpostos(vTotalComImposto);
 
                 pSTprod = (vICMSST/(vProduto + vIPI))*100;
@@ -168,7 +170,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 produto.setVicmsst(vICMSST);
 
 
-                vTotalComImposto = (vProduto + vIPI + vICMSST);
+                vTotalComImposto = (vProduto + vIPI + vICMSST + vFrete);
                 produto.setTotalComImpostos(vTotalComImposto);
 
                 pSTprod = (vICMSST/(vProduto + vIPI))*100;
