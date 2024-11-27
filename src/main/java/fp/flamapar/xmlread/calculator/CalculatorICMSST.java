@@ -127,55 +127,55 @@ public static void processarCalculo(String caso , ProductDetails produto) {
             
             
         case "INTERESTADUAL_SEM_REDUCAO":
-            //System.out.println("Processando cálculo interestadual sem redução...");
-            // Lógica específica para INTERESTADUAL_SEM_REDUCAO
-            
-            produto.setVIPI(vIPI);
+                //System.out.println("Processando cálculo interestadual sem redução...");
+                // Lógica específica para INTERESTADUAL_SEM_REDUCAO
 
-            vICMSproprio = (vProduto + vFrete) * pICMS/100;
+                produto.setVIPI(vIPI);
 
-            baseICMSST = ( (vProduto + vIPI + vFrete) * pMVA/100 ) + (vProduto + vIPI);
-            produto.setBaseicmsst(baseICMSST);
-            
-            vICMSdestino = baseICMSST * pICMSST/100;
-            
-            vICMSST = vICMSdestino - vICMSproprio;
-            produto.setVicmsst(vICMSST);
+                vICMSproprio = (vProduto + vFrete) * pICMS/100;
 
-            vTotalComImposto = (vProduto + vIPI + vICMSST);
-            produto.setTotalComImpostos(vTotalComImposto);
+                baseICMSST = ( (vProduto + vIPI + vFrete) * pMVA/100 ) + (vProduto + vIPI);
+                produto.setBaseicmsst(baseICMSST);
 
-            pSTprod = (vICMSST/(vProduto + vIPI))*100;
-            produto.setSt(pSTprod);
+                vICMSdestino = baseICMSST * pICMSST/100;
 
-            pSTsist = (vICMSST/vProduto)*100;
-            produto.setStsist(pSTsist);
+                vICMSST = vICMSdestino - vICMSproprio;
+                produto.setVicmsst(vICMSST);
+
+                vTotalComImposto = (vProduto + vIPI + vICMSST);
+                produto.setTotalComImpostos(vTotalComImposto);
+
+                pSTprod = (vICMSST/(vProduto + vIPI))*100;
+                produto.setSt(pSTprod);
+
+                pSTsist = (vICMSST/vProduto)*100;
+                produto.setStsist(pSTsist);
             break;
         
         case "INTERESTADUAL_COM_REDUCAO":
-            //System.out.println("Processando cálculo interestadual com redução...");
-            // Lógica específica para INTERESTADUAL_COM_REDUCAO
-            
-            produto.setVIPI(vIPI);
+                //System.out.println("Processando cálculo interestadual com redução...");
+                // Lógica específica para INTERESTADUAL_COM_REDUCAO
 
-            baseICMS = (vProduto + vFrete)*(1-(pRedBC/100));
-            vICMSproprio = baseICMS * pICMS/100;
-            
-            baseICMSST = ( (vProduto + vIPI + vFrete) * (1 + pMVA/100) ) * (1 - (pRedBCST/100));
-            Double ICMSsobreST = (baseICMSST * pICMSST/100);
-            produto.setBaseicmsst(baseICMSST);
-            vICMSST = (ICMSsobreST - vICMSproprio);
-            produto.setVicmsst(vICMSST);
-                       
+                produto.setVIPI(vIPI);
 
-            vTotalComImposto = (vProduto + vIPI + vICMSST);
-            produto.setTotalComImpostos(vTotalComImposto);
+                baseICMS = (vProduto + vFrete)*(1-(pRedBC/100));
+                vICMSproprio = baseICMS * pICMS/100;
 
-            pSTprod = (vICMSST/(vProduto + vIPI))*100;
-            produto.setSt(pSTprod);
+                baseICMSST = ( (vProduto + vIPI + vFrete) * (1 + pMVA/100) ) * (1 - (pRedBCST/100));
+                Double ICMSsobreST = (baseICMSST * pICMSST/100);
+                produto.setBaseicmsst(baseICMSST);
+                vICMSST = (ICMSsobreST - vICMSproprio);
+                produto.setVicmsst(vICMSST);
 
-            pSTsist = (vICMSST/vProduto)*100;
-            produto.setStsist(pSTsist);
+
+                vTotalComImposto = (vProduto + vIPI + vICMSST);
+                produto.setTotalComImpostos(vTotalComImposto);
+
+                pSTprod = (vICMSST/(vProduto + vIPI))*100;
+                produto.setSt(pSTprod);
+
+                pSTsist = (vICMSST/vProduto)*100;
+                produto.setStsist(pSTsist);
             break;
         
 
