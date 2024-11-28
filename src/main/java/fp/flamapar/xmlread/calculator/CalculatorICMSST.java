@@ -123,7 +123,20 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 
                 pSTsist = (vICMSST/vProduto)*100;
                 produto.setStsist(pSTsist);
-
+                
+                // Gera a explicação para o tooltip
+                String tooltipText = String.format(
+                    "<html>Modo: Estadual com Redução<br>" +
+                    "ICMS Próprio: R$ %.2f<br>" +
+                    "Base ICMS ST: R$ %.2f<br>" +
+                    "ICMS ST: R$ %.2f<br>" +
+                    "Total com Imposto: R$ %.2f<br>" +
+                    "ST Sistema: %.2f%%<br>" +
+                    "ST Produto: %.2f%%</html>",
+                    vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTsist, pSTprod
+                );
+                
+                produto.setExplicacao(tooltipText);
             break;    
             
             

@@ -33,7 +33,7 @@ public class ProductViewer extends JFrame {
         
         // Configurações da janela principal
         setTitle("Visualizador de Produtos");
-        setSize(800, 400);
+        setSize(800, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -255,6 +255,7 @@ public class ProductViewer extends JFrame {
     private void showProductDetails(ProductDetails produto) {
         if (produto != null) {
             textNome.setText(produto.getNome());
+            textMva.setToolTipText(produto.getExplicacao()); // Define o texto do tooltip
             //System.out.println(produto.getNome());
             
             df.applyPattern("R$ #,##0.00");

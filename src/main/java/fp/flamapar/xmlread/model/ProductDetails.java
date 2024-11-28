@@ -34,6 +34,7 @@ public class ProductDetails {
     private Double baseicmsst ;
     private Double vFrete ;
     private Double qCom;
+    private String explicacao;
     
     @Override
     public String toString() {
