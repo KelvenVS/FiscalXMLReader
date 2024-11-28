@@ -15,9 +15,16 @@ public class ProductViewer extends JFrame {
 
     private JList<ProductDetails> productList;   
     // Declaração dos JLabels para cada atributo de ProdutoDetalhes
-    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelPrecoComImpostos, labelpIPI, labelvIPI,labelCsta, labelCstb, labelCfop, labelMva, labelStsist, labelSt, labelIcmsst, labelUcom, labelBaseicmsst, labelTotalProd, labelTotaldaNota , labelvFrete;
+    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, 
+            labelPrecoComImpostos, labelpIPI, labelvIPI,labelCsta, labelCstb, 
+            labelCfop, labelMva, labelStsist, labelSt, labelIcmsst, labelUcom, 
+            labelBaseicmsst, labelTotalProd, labelTotaldaNota , labelvFrete , 
+            labelPRedBC , labelPRedBCST,labelVICMS;
     
-    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, textTotal, textpIPI, textvIPI,textCsta, textCstb, textCfop, textMva, textStsist, textSt, textIcmsst, textUcom, textBaseicmsst , textTotalProd, textTotaldaNota , textvFrete;
+    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, 
+            textTotal, textpIPI, textvIPI,textCsta, textCstb, textCfop, textMva,
+            textStsist, textSt, textIcmsst, textUcom, textBaseicmsst , textTotalProd, 
+            textTotaldaNota , textvFrete , textPRedBC , textPRedBCST ,textVICMS;
 
 
     public ProductViewer() {
@@ -34,7 +41,7 @@ public class ProductViewer extends JFrame {
         
         // Configurações da janela principal
         setTitle("Visualizador de Produtos");
-        setSize(800, 400);
+        setSize(800, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -172,25 +179,45 @@ public class ProductViewer extends JFrame {
         
         //Linha 5
         linha = linha + 1;
-        labelStsist = new JLabel("% ST Sistema: ");
-        addComponent(mainPanel, labelStsist, 0, linha);
+        labelPRedBC = new JLabel("% Red BC ICMS:");
+        addComponent(mainPanel, labelPRedBC, 0, linha);
         
-        textStsist = createTextArea();
-        addComponent(mainPanel, textStsist, 1, linha);
+        textPRedBC = createTextArea();
+        addComponent(mainPanel, textPRedBC, 1, linha);
+        
+        labelPRedBCST = new JLabel("% Red BC ICMS-ST:");
+        addComponent(mainPanel, labelPRedBCST, 2, linha);
+        
+        textPRedBCST = createTextArea();
+        addComponent(mainPanel, textPRedBCST, 3, linha);
         
         labelSt = new JLabel("% ST: ");
-        addComponent(mainPanel, labelSt, 2, linha);
+        addComponent(mainPanel, labelSt, 4, linha);
         
         textSt = createTextArea();
-        addComponent(mainPanel, textSt, 3, linha);
-        
-        labelIcmsst = new JLabel("ICMS ST: ");        
-        addComponent(mainPanel, labelIcmsst, 4, linha);
-        
-        textIcmsst = createTextArea();        
-        addComponent(mainPanel, textIcmsst, 5, linha);
+        addComponent(mainPanel, textSt, 5, linha);
         
         //Linha 6
+        linha = linha + 1;
+        labelVICMS = new JLabel("ICMS :");
+        addComponent(mainPanel, labelVICMS, 0, linha);
+        
+        textVICMS = createTextArea();
+        addComponent(mainPanel, textVICMS, 1, linha);
+        
+        labelBaseicmsst = new JLabel("Base ICMS ST: ");
+        addComponent(mainPanel, labelBaseicmsst, 2, linha);
+        
+        textBaseicmsst = createTextArea();
+        addComponent(mainPanel, textBaseicmsst, 3, linha);
+        
+        labelStsist = new JLabel("% ST Sistema: ");
+        addComponent(mainPanel, labelStsist, 4, linha);
+        
+        textStsist = createTextArea();
+        addComponent(mainPanel, textStsist, 5, linha);
+                   
+        //Linha 7
         linha = linha + 1;
         labelPrecoUnit = new JLabel("Preço Unitário: ");
         addComponent(mainPanel, labelPrecoUnit, 0, linha);
@@ -198,19 +225,19 @@ public class ProductViewer extends JFrame {
         textPrecoUnit = createTextArea();
         addComponent(mainPanel, textPrecoUnit, 1, linha);
         
-        labelPrecoComImpostos = new JLabel("Total com Impostos: ");
+        labelPrecoComImpostos = new JLabel("Preço Final: ");
         addComponent(mainPanel, labelPrecoComImpostos, 2, linha);
         
         textTotal = createTextArea();
         addComponent(mainPanel, textTotal, 3, linha);
+        
+        labelIcmsst = new JLabel("ICMS ST: ");        
+        addComponent(mainPanel, labelIcmsst, 4, linha);
+        
+        textIcmsst = createTextArea();        
+        addComponent(mainPanel, textIcmsst, 5, linha);
             
-        labelBaseicmsst = new JLabel("Base ICMS ST: ");
-        addComponent(mainPanel, labelBaseicmsst, 4, linha);
-        
-        textBaseicmsst = createTextArea();
-        addComponent(mainPanel, textBaseicmsst, 5, linha);
-        
-        //Linha 7 
+        //Linha 8 
         linha = linha + 1;
         labelTotalProd = new JLabel("Total do Produto:");
         addComponent(mainPanel, labelTotalProd, 0, linha);
@@ -230,8 +257,7 @@ public class ProductViewer extends JFrame {
         textvFrete = createTextArea();
         addComponent(mainPanel, textvFrete, 5, linha);
         
-        
-        //Linha 8
+        //Linha 9
         linha = linha + 1;
         addComponent(mainPanel, dragDropArea, 0, linha, 6, 1, 1.0, 0.0, GridBagConstraints.BOTH, new Insets(10, 10, 10, 10));
 
