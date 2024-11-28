@@ -12,11 +12,11 @@ import java.util.List; // Para manipular múltiplos arquivos
 
 public class ProductViewer extends JFrame {
 
-    private JList<ProductDetails> productList;
+    private JList<ProductDetails> productList;   
     // Declaração dos JLabels para cada atributo de ProdutoDetalhes
-    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelTotal, labelpIPI, labelvIPI,labelCsta, labelCstb, labelCfop, labelMva, labelStsist, labelSt, labelIcmsst, labelUcom, labelBaseicmsst;
+    private JLabel labelNome, labelCodigo, labelCodigoEAN, labelNCM, labelPrecoUnit, labelPrecoComImpostos, labelpIPI, labelvIPI,labelCsta, labelCstb, labelCfop, labelMva, labelStsist, labelSt, labelIcmsst, labelUcom, labelBaseicmsst, labelTotalProd, labelTotaldaNota , labelvFrete;
     
-    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, textTotal, textpIPI, textvIPI,textCsta, textCstb, textCfop, textMva, textStsist, textSt, textIcmsst, textUcom, textBaseicmsst;
+    private JTextArea textNome, textCodigo, textCodigoEAN, textNCM, textPrecoUnit, textTotal, textpIPI, textvIPI,textCsta, textCstb, textCfop, textMva, textStsist, textSt, textIcmsst, textUcom, textBaseicmsst , textTotalProd, textTotaldaNota , textvFrete;
 
 
     public ProductViewer() {
@@ -197,8 +197,8 @@ public class ProductViewer extends JFrame {
         textPrecoUnit = createTextArea();
         addComponent(mainPanel, textPrecoUnit, 1, linha);
         
-        labelTotal = new JLabel("Total com Impostos: ");
-        addComponent(mainPanel, labelTotal, 2, linha);
+        labelPrecoComImpostos = new JLabel("Preço Final: ");
+        addComponent(mainPanel, labelPrecoComImpostos, 2, linha);
         
         textTotal = createTextArea();
         addComponent(mainPanel, textTotal, 3, linha);
@@ -209,7 +209,28 @@ public class ProductViewer extends JFrame {
         textBaseicmsst = createTextArea();
         addComponent(mainPanel, textBaseicmsst, 5, linha);
         
-        //Linha 7
+        //Linha 7 
+        linha = linha + 1;
+        labelTotalProd = new JLabel("Total do Produto:");
+        addComponent(mainPanel, labelTotalProd, 0, linha);
+        
+        textTotalProd = createTextArea();
+        addComponent(mainPanel, textTotalProd, 1, linha);
+        
+        labelTotaldaNota = new JLabel("Total da Nota :");
+        addComponent(mainPanel, labelTotaldaNota, 2, linha);
+        
+        textTotaldaNota = createTextArea();
+        addComponent(mainPanel, textTotaldaNota, 3, linha);
+        
+        labelvFrete = new JLabel("Frete Unitário :");
+        addComponent(mainPanel, labelvFrete, 4, linha);
+        
+        textvFrete = createTextArea();
+        addComponent(mainPanel, textvFrete, 5, linha);
+        
+        
+        //Linha 8
         linha = linha + 1;
         addComponent(mainPanel, dragDropArea, 0, linha, 6, 1, 1.0, 0.0, GridBagConstraints.BOTH, new Insets(10, 10, 10, 10));
 
@@ -241,12 +262,15 @@ public class ProductViewer extends JFrame {
             textTotal.setText(df.format(produto.getTotalComImpostos()));
             textvIPI.setText(df.format(produto.getVIPI()));
             textIcmsst.setText(df.format(produto.getVicmsst()));
-            
+            textTotalProd.setText(df.format(produto.getPrecoUnitario() * produto.getQCom()));
+            textTotaldaNota.setText(df.format(produto.getTotalComImpostos()* produto.getQCom()));
+            textvFrete.setText(df.format(produto.getVFrete()));
             
             df.applyPattern("##0.00");
-            textpIPI.setText(df.format(produto.getVIPI()));
+            textpIPI.setText(df.format(produto.getPIPI()));
             textStsist.setText(df.format(produto.getStsist()));
             textSt.setText(df.format(produto.getSt()));
+            textBaseicmsst.setText(df.format(produto.getBaseicmsst()));
             
             textCodigo.setText(produto.getCodigo());
             textCodigoEAN.setText(produto.getCodigoEAN());
@@ -260,8 +284,7 @@ public class ProductViewer extends JFrame {
             
             textUcom.setText(String.valueOf(produto.getQCom() + " x "+ produto.getUCom()));
             //System.out.println(produto.getUCom());
-            
-            textBaseicmsst.setText(String.valueOf(produto.getBaseicmsst()));
+
         }
     }
     
@@ -298,10 +321,12 @@ public class ProductViewer extends JFrame {
         }
         
     private void processXmlFile(File file) {
-        ProductProcessor xmlReadExample = new ProductProcessor();
+        XmlParser xmlReadExample = new XmlParser();
+        //ProductProcessor xmlReadExample = new ProductProcessor();
         try {
             // Atualiza a lista de produtos
-            List<ProductDetails> produtos = xmlReadExample.loadProdutos(file);
+            List<ProductDetails> produtos = xmlReadExample.parseXml(file);
+            //List<ProductDetails> produtos = xmlReadExample.loadProdutos(file);
 
             // Verifique se productList não é nula antes de usá-la
             if (productList == null) {

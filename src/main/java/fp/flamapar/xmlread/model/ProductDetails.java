@@ -23,6 +23,8 @@ public class ProductDetails {
     private Double pIPI ;
     private Double vIPI ;
     private Double mva ;
+    private Double pRedBC ;
+    private Double pRedBCST ;
     private Double stsist ;
     private Double st ;
     private Double picms;
