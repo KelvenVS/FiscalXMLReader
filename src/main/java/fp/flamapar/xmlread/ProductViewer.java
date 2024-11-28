@@ -232,11 +232,26 @@ public class ProductViewer extends JFrame {
         
         //Linha 8
         linha = linha + 1;
-        addComponent(mainPanel, dragDropArea, 0, linha, 6, 1, 1.0, 0.0, GridBagConstraints.BOTH, new Insets(10, 10, 10, 10));
+        addComponent(mainPanel, dragDropArea, 0, linha, 5, 1, 1.0, 0.0, GridBagConstraints.BOTH, new Insets(10, 10, 10, 10));
+        
+        // Adicione o botão no painel principal
+        JButton detailsButton = new JButton("Ver Detalhes");
+        addComponent(mainPanel, detailsButton, 5, linha);
 
+        // Adicione um ActionListener ao botão
+        detailsButton.addActionListener(e -> {
+            // Obtenha o produto selecionado na JList
+            ProductDetails selectedProduct = productList.getSelectedValue();
+
+            if (selectedProduct != null) {
+                // Abra o pop-up com informações detalhadas do produto
+                showProductPopup(selectedProduct);
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum produto selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        });
       
-    }
-    
+    }   
     // Método auxiliar para criar JTextArea com margens internas e configuração de tamanho
     private JTextArea createTextArea() {
         JTextArea textArea = new JTextArea();
@@ -342,8 +357,31 @@ public class ProductViewer extends JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao processar o XML: " + ex.getMessage());
         }
     }
-
     
+    
+    // Método para exibir o pop-up
+    private void showProductPopup(ProductDetails product) {
+        // Crie um novo JFrame para o pop-up
+        JFrame popup = new JFrame("Detalhes do Produto");
+        popup.setSize(600, 400);
+        popup.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        popup.setLocationRelativeTo(this);
+
+        // Use JEditorPane para exibir o HTML retornado por getExplicacao()
+        JEditorPane editorPane = new JEditorPane();
+        editorPane.setContentType("text/html"); // Define o tipo de conteúdo como HTML
+        editorPane.setText(product.getExplicacao()); // Insere o conteúdo HTML
+        editorPane.setEditable(false); // Torna o editor apenas leitura
+
+        // Adiciona um JScrollPane para o editor, caso o conteúdo seja maior que a janela
+        JScrollPane scrollPane = new JScrollPane(editorPane);
+
+        // Adiciona o JScrollPane ao JFrame
+        popup.add(scrollPane);
+        popup.setVisible(true);
+    }
+  
+
     public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> {
         ProductViewer viewer = new ProductViewer();

@@ -77,18 +77,30 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 produto.setVicmsst(0.0);
                 produto.setPicmsst(0.0);
                 produto.setPicms(0.0);
-            
-            // Tooltip para SEM_ST    
-            tooltipText = String.format(
-            "<html>Modo: Sem Substituição Tributária (ST)<br>" +
-            "Total com Imposto: R$ %.2f<br>" +
-            "ICMS Próprio: R$ 0.00<br>" +
-            "Base ICMS ST: R$ 0.00<br>" +
-            "ICMS ST: R$ 0.00</html>",
-            vTotalComImposto
-            );
-            produto.setExplicacao(tooltipText);
-            
+                
+                
+                // Tooltip para SEM_ST
+                tooltipText = String.format(
+                    "<html>" +
+                    "<b>Modo:</b> Sem Substituição Tributária (ST)<br>" +
+                    "<hr>" + // Linha divisória
+                    "<b>Detalhamento do Cálculo:</b><br>" +
+                    "1. <b>Base do Produto:</b> Preço Unitário (vProduto) + Frete Unitário (vFrete)<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f + %.2f = %.2f<br>" +
+                    "<hr>" +        
+                    "2. <b>Valor do IPI:</b> Percentual IPI (pIPI) aplicado à Base do Produto<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f%% x (%.2f + %.2f) = %.2f<br>" +
+                    "<hr>" +
+                    "3. <b>Total com Imposto:</b> Base do Produto + Valor do IPI<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f + %.2f = %.2f<br>" +
+                    "<hr>" + // Linha divisória
+                    "<b>Observação:</b> ICMS Próprio e ICMS ST não aplicáveis neste caso.<br>" +
+                    "</html>",
+                    vProduto, vFrete, (vProduto + vFrete),
+                    pIPI * 100, vProduto, vFrete, vIPI,
+                    (vProduto + vFrete), vIPI, vTotalComImposto
+                );
+                produto.setExplicacao(tooltipText);
             break;
         
         case "ESTADUAL_SEM_REDUCAO":
@@ -116,17 +128,38 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 
             // Tooltip para ESTADUAL_SEM_REDUCAO
             tooltipText = String.format(
-                "<html>Modo: Estadual sem Redução<br>" +
-                "ICMS Próprio: R$ %.2f<br>" +
-                "Base ICMS ST: R$ %.2f<br>" +
-                "ICMS ST: R$ %.2f<br>" +
-                "Total com Imposto: R$ %.2f<br>" +
-                "ST Produto: %.2f%%<br>" +
-                "ST Sistema: %.2f%%</html>",
-                vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTprod, pSTsist
+                "<html>" +
+                "<b>Modo:</b> Estadual sem Redução<br>" +
+                "<hr>" +
+                "<b>Detalhamento do Cálculo:</b><br>" +
+                "1. <b>ICMS Próprio:</b> (vProduto + vFrete) * pICMS / 100<br>" +
+                "&nbsp;&nbsp;&nbsp;Substituindo: (%.2f + %.2f) * %.2f%% = R$ %.2f<br>" +
+                "<hr>" +        
+                "2. <b>Base ICMS ST:</b> (vProduto + vIPI + vFrete) * (1 + pMVA / 100)<br>" +
+                "&nbsp;&nbsp;&nbsp;Substituindo: (%.2f + %.2f + %.2f) * (1 + %.2f%%) = R$ %.2f<br>" +
+                "<hr>" +        
+                "3. <b>ICMS ST:</b> Base ICMS ST * pICMS / 100 - ICMS Próprio<br>" +
+                "&nbsp;&nbsp;&nbsp;Substituindo: %.2f * %.2f%% - %.2f = R$ %.2f<br>" +
+                "<hr>" +        
+                "4. <b>Total com Imposto:</b> vProduto + vIPI + ICMS ST + vFrete<br>" +
+                "&nbsp;&nbsp;&nbsp;Substituindo: %.2f + %.2f + %.2f + %.2f = R$ %.2f<br>" +
+                "<hr>" +        
+                "5. <b>ST Produto:</b> ICMS ST / (vProduto + vIPI) * 100<br>" +
+                "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / (%.2f + %.2f) * 100 = %.2f%%<br>" +
+                "<hr>" +        
+                "6. <b>ST Sistema:</b> ICMS ST / vProduto * 100<br>" +
+                "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / %.2f * 100 = %.2f%%<br>" +
+                "<hr>" +
+                "</html>",
+                vProduto, vFrete, pICMS, vICMSproprio,
+                vProduto, vIPI, vFrete, pMVA, baseICMSST,
+                baseICMSST, pICMS, vICMSproprio, vICMSST,
+                vProduto, vIPI, vICMSST, vFrete, vTotalComImposto,
+                vICMSST, vProduto, vIPI, pSTprod,
+                vICMSST, vProduto, pSTsist
             );
-            produto.setExplicacao(tooltipText);
-            break;
+                produto.setExplicacao(tooltipText);
+                break;
 
         case "ESTADUAL_COM_REDUCAO":
                 // Lógica específica para ESTADUAL_COM_REDUCAO
@@ -150,26 +183,46 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 pSTsist = (vICMSST/vProduto)*100;
                 produto.setStsist(pSTsist);
                 
+                
                 // Tooltip para ESTADUAL_COM_REDUCAO
                 tooltipText = String.format(
-                    "<html>Modo: Estadual com Redução<br>" +
-                    "Redução Base ICMS: %.2f%%<br>" +
-                    "ICMS Próprio: R$ %.2f<br>" +
-                    "Base ICMS ST: R$ %.2f<br>" +
-                    "ICMS ST: R$ %.2f<br>" +
-                    "Total com Imposto: R$ %.2f<br>" +
-                    "ST Produto: %.2f%%<br>" +
-                    "ST Sistema: %.2f%%</html>",
-                    pRedBC, vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTprod, pSTsist
+                    "<html>" +
+                    "<b>Modo:</b> Estadual com Redução<br>" +
+                    "<hr>" +
+                    "<b>Detalhamento do Cálculo:</b><br>" +
+                    "1. <b>ICMS Próprio:</b> ((vProduto + vFrete) * pICMS / 100) * (1 - pRedBC / 100)<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: ((%.2f + %.2f) * %.2f%%) * (1 - %.2f%%) = R$ %.2f<br>" +
+                    "<hr>" +        
+                    "2. <b>Base ICMS ST:</b> ((vProduto + vIPI + vFrete) * (1 + pMVA / 100)) * (1 - pRedBCST / 100)<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: ((%.2f + %.2f + %.2f) * (1 + %.2f%%)) * (1 - %.2f%%) = R$ %.2f<br>" +
+                    "<hr>" +        
+                    "3. <b>ICMS ST:</b> Base ICMS ST * pICMS / 100 - ICMS Próprio<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f * %.2f%% - %.2f = R$ %.2f<br>" +
+                    "<hr>" +        
+                    "4. <b>Total com Imposto:</b> vProduto + vIPI + ICMS ST + vFrete<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f + %.2f + %.2f + %.2f = R$ %.2f<br>" +
+                    "<hr>" +        
+                    "5. <b>ST Produto:</b> ICMS ST / (vProduto + vIPI) * 100<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / (%.2f + %.2f) * 100 = %.2f%%<br>" +
+                    "<hr>" +        
+                    "6. <b>ST Sistema:</b> ICMS ST / vProduto * 100<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / %.2f * 100 = %.2f%%<br>" +
+                    "<hr>" +
+                    "</html>",
+                    vProduto, vFrete, pICMS, pRedBC, vICMSproprio,
+                    vProduto, vIPI, vFrete, pMVA, pRedBCST, baseICMSST,
+                    baseICMSST, pICMS, vICMSproprio, vICMSST,
+                    vProduto, vIPI, vICMSST, vFrete, vTotalComImposto,
+                    vICMSST, vProduto, vIPI, pSTprod,
+                    vICMSST, vProduto, pSTsist
                 );
                 produto.setExplicacao(tooltipText);
-                break; 
+                break;
             
             
         case "INTERESTADUAL_SEM_REDUCAO":
                 //System.out.println("Processando cálculo interestadual sem redução...");
                 // Lógica específica para INTERESTADUAL_SEM_REDUCAO
-
                 produto.setVIPI(vIPI);
 
                 vICMSproprio = (vProduto + vFrete) * pICMS/100;
@@ -192,17 +245,39 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 produto.setStsist(pSTsist);
                 
                 
-                // Tooltip para INTERESTADUAL_SEM_REDUCAO
+                // Explicação "à mão" para INTERESTADUAL_SEM_REDUCAO
                 tooltipText = String.format(
-                    "<html>Modo: Interestadual sem Redução<br>" +
-                    "ICMS Próprio: R$ %.2f<br>" +
-                    "Base ICMS ST: R$ %.2f<br>" +
-                    "ICMS ST: R$ %.2f<br>" +
-                    "Total com Imposto: R$ %.2f<br>" +
-                    "ST Produto: %.2f%%<br>" +
-                    "ST Sistema: %.2f%%</html>",
-                    vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTprod, pSTsist
+                    "<html>" +
+                    "<b>Modo:</b> Interestadual sem Redução<br>" +
+                    "<hr>" +
+                    "<b>Detalhamento do Cálculo:</b><br>" +
+                    "1. <b>ICMS Próprio:</b> (vProduto + vFrete) * pICMS / 100<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: (%.2f + %.2f) * %.2f%% = R$ %.2f<br>" +
+                    "<hr>" +
+                    "2. <b>Base ICMS ST:</b> ((vProduto + vIPI + vFrete) * pMVA / 100) + (vProduto + vIPI)<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: ((%.2f + %.2f + %.2f) * %.2f%%) + (%.2f + %.2f) = R$ %.2f<br>" +
+                    "<hr>" +
+                    "3. <b>ICMS ST:</b> Base ICMS ST * pICMSST / 100 - ICMS Próprio<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f * %.2f%% - %.2f = R$ %.2f<br>" +
+                    "<hr>" +
+                    "4. <b>Total com Imposto:</b> vProduto + vIPI + ICMS ST + vFrete<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f + %.2f + %.2f + %.2f = R$ %.2f<br>" +
+                    "<hr>" +
+                    "5. <b>ST Produto:</b> ICMS ST / (vProduto + vIPI) * 100<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / (%.2f + %.2f) * 100 = %.2f%%<br>" +
+                    "<hr>" +
+                    "6. <b>ST Sistema:</b> ICMS ST / vProduto * 100<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / %.2f * 100 = %.2f%%<br>" +
+                    "<hr>" +
+                    "</html>",
+                    vProduto, vFrete, pICMS, vICMSproprio,
+                    vProduto, vIPI, vFrete, pMVA, vProduto, vIPI, baseICMSST,
+                    baseICMSST, pICMSST, vICMSproprio, vICMSST,
+                    vProduto, vIPI, vICMSST, vFrete, vTotalComImposto,
+                    vICMSST, vProduto, vIPI, pSTprod,
+                    vICMSST, vProduto, pSTsist
                 );
+
                 produto.setExplicacao(tooltipText);
                 break;
         
@@ -233,15 +308,39 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 
                 // Tooltip para INTERESTADUAL_COM_REDUCAO
                 tooltipText = String.format(
-                    "<html>Modo: Interestadual com Redução<br>" +
-                    "Redução Base ICMS: %.2f%%<br>" +
-                    "ICMS Próprio: R$ %.2f<br>" +
-                    "Base ICMS ST: R$ %.2f<br>" +
-                    "ICMS ST: R$ %.2f<br>" +
-                    "Total com Imposto: R$ %.2f<br>" +
-                    "ST Produto: %.2f%%<br>" +
-                    "ST Sistema: %.2f%%</html>",
-                    pRedBC, vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTprod, pSTsist
+                    "<html>" +
+                    "<b>Modo:</b> Interestadual com Redução<br>" +
+                    "<hr>" +
+                    "<b>Detalhamento do Cálculo:</b><br>" +
+                    "1. <b>Base ICMS:</b> (vProduto + vFrete) * (1 - pRedBC / 100)<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: (%.2f + %.2f) * (1 - %.2f / 100) = R$ %.2f<br>" +
+                    "<hr>" +
+                    "2. <b>ICMS Próprio:</b> Base ICMS * pICMS / 100<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f * %.2f / 100 = R$ %.2f<br>" +
+                    "<hr>" +
+                    "3. <b>Base ICMS ST:</b> ((vProduto + vIPI + vFrete) * (1 + pMVA / 100)) * (1 - pRedBCST / 100)<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: ((%.2f + %.2f + %.2f) * (1 + %.2f / 100)) * (1 - %.2f / 100) = R$ %.2f<br>" +
+                    "<hr>" +
+                    "4. <b>ICMS ST:</b> Base ICMS ST * pICMSST / 100 - ICMS Próprio<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f * %.2f / 100 - %.2f = R$ %.2f<br>" +
+                    "<hr>" +
+                    "5. <b>Total com Imposto:</b> vProduto + vIPI + ICMS ST + vFrete<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f + %.2f + %.2f + %.2f = R$ %.2f<br>" +
+                    "<hr>" +
+                    "6. <b>ST Produto:</b> ICMS ST / (vProduto + vIPI) * 100<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / (%.2f + %.2f) * 100 = %.2f%%<br>" +
+                    "<hr>" +
+                    "7. <b>ST Sistema:</b> ICMS ST / vProduto * 100<br>" +
+                    "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / %.2f * 100 = %.2f%%<br>" +
+                    "<hr>" +
+                    "</html>",
+                    vProduto, vFrete, pRedBC, baseICMS,
+                    baseICMS, pICMS, vICMSproprio,
+                    vProduto, vIPI, vFrete, pMVA, pRedBCST, baseICMSST,
+                    baseICMSST, pICMSST, vICMSproprio, vICMSST,
+                    vProduto, vIPI, vICMSST, vFrete, vTotalComImposto,
+                    vICMSST, vProduto, vIPI, pSTprod,
+                    vICMSST, vProduto, pSTsist
                 );
                 produto.setExplicacao(tooltipText);
                 break;
