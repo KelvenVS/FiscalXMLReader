@@ -82,7 +82,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 // Tooltip para SEM_ST
                 tooltipText = String.format(
                     "<html>" +
-                    "<b>Modo:</b> Sem Substituição Tributária (ST)<br>" +
+                    "<b>Modo:</b> Sem Recolhimento Atual de ST<br>" +
                     "<hr>" + // Linha divisória
                     "<b>Detalhamento do Cálculo:</b><br>" +
                     "1. <b>Base do Produto:</b> Preço Unitário (vProduto) + Frete Unitário (vFrete)<br>" +
@@ -245,7 +245,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 produto.setStsist(pSTsist);
                 
                 
-                // Explicação "à mão" para INTERESTADUAL_SEM_REDUCAO
+                //Tooltip para ESTADUAL_SEM_REDUCAO
                 tooltipText = String.format(
                     "<html>" +
                     "<b>Modo:</b> Interestadual sem Redução<br>" +
