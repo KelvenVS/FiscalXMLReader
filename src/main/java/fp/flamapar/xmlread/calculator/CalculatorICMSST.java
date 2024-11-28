@@ -56,6 +56,8 @@ public static void processarCalculo(String caso , ProductDetails produto) {
     
     pRedBCST = (pRedBCST == 0 ? pRedBCST = pRedBC : pRedBCST);
     
+    String tooltipText;
+    
     //Variáveis cálculo
     Double vTotalComImposto;
     Double vICMSproprio;
@@ -64,7 +66,6 @@ public static void processarCalculo(String caso , ProductDetails produto) {
     Double pSTsist;
     Double pSTprod;
     Double vICMSdestino;
-    
     Double baseICMS;
     
     switch (caso) {
@@ -76,6 +77,18 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 produto.setVicmsst(0.0);
                 produto.setPicmsst(0.0);
                 produto.setPicms(0.0);
+            
+            // Tooltip para SEM_ST    
+            tooltipText = String.format(
+            "<html>Modo: Sem Substituição Tributária (ST)<br>" +
+            "Total com Imposto: R$ %.2f<br>" +
+            "ICMS Próprio: R$ 0.00<br>" +
+            "Base ICMS ST: R$ 0.00<br>" +
+            "ICMS ST: R$ 0.00</html>",
+            vTotalComImposto
+            );
+            produto.setExplicacao(tooltipText);
+            
             break;
         
         case "ESTADUAL_SEM_REDUCAO":
@@ -100,6 +113,19 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 
                 pSTsist = (vICMSST/vProduto)*100;
                 produto.setStsist(pSTsist);
+                
+            // Tooltip para ESTADUAL_SEM_REDUCAO
+            tooltipText = String.format(
+                "<html>Modo: Estadual sem Redução<br>" +
+                "ICMS Próprio: R$ %.2f<br>" +
+                "Base ICMS ST: R$ %.2f<br>" +
+                "ICMS ST: R$ %.2f<br>" +
+                "Total com Imposto: R$ %.2f<br>" +
+                "ST Produto: %.2f%%<br>" +
+                "ST Sistema: %.2f%%</html>",
+                vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTprod, pSTsist
+            );
+            produto.setExplicacao(tooltipText);
             break;
 
         case "ESTADUAL_COM_REDUCAO":
@@ -124,20 +150,20 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 pSTsist = (vICMSST/vProduto)*100;
                 produto.setStsist(pSTsist);
                 
-                // Gera a explicação para o tooltip
-                String tooltipText = String.format(
+                // Tooltip para ESTADUAL_COM_REDUCAO
+                tooltipText = String.format(
                     "<html>Modo: Estadual com Redução<br>" +
+                    "Redução Base ICMS: %.2f%%<br>" +
                     "ICMS Próprio: R$ %.2f<br>" +
                     "Base ICMS ST: R$ %.2f<br>" +
                     "ICMS ST: R$ %.2f<br>" +
                     "Total com Imposto: R$ %.2f<br>" +
-                    "ST Sistema: %.2f%%<br>" +
-                    "ST Produto: %.2f%%</html>",
-                    vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTsist, pSTprod
+                    "ST Produto: %.2f%%<br>" +
+                    "ST Sistema: %.2f%%</html>",
+                    pRedBC, vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTprod, pSTsist
                 );
-                
                 produto.setExplicacao(tooltipText);
-            break;    
+                break; 
             
             
         case "INTERESTADUAL_SEM_REDUCAO":
@@ -164,7 +190,21 @@ public static void processarCalculo(String caso , ProductDetails produto) {
 
                 pSTsist = (vICMSST/vProduto)*100;
                 produto.setStsist(pSTsist);
-            break;
+                
+                
+                // Tooltip para INTERESTADUAL_SEM_REDUCAO
+                tooltipText = String.format(
+                    "<html>Modo: Interestadual sem Redução<br>" +
+                    "ICMS Próprio: R$ %.2f<br>" +
+                    "Base ICMS ST: R$ %.2f<br>" +
+                    "ICMS ST: R$ %.2f<br>" +
+                    "Total com Imposto: R$ %.2f<br>" +
+                    "ST Produto: %.2f%%<br>" +
+                    "ST Sistema: %.2f%%</html>",
+                    vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTprod, pSTsist
+                );
+                produto.setExplicacao(tooltipText);
+                break;
         
         case "INTERESTADUAL_COM_REDUCAO":
                 //System.out.println("Processando cálculo interestadual com redução...");
@@ -190,7 +230,21 @@ public static void processarCalculo(String caso , ProductDetails produto) {
 
                 pSTsist = (vICMSST/vProduto)*100;
                 produto.setStsist(pSTsist);
-            break;
+                
+                // Tooltip para INTERESTADUAL_COM_REDUCAO
+                tooltipText = String.format(
+                    "<html>Modo: Interestadual com Redução<br>" +
+                    "Redução Base ICMS: %.2f%%<br>" +
+                    "ICMS Próprio: R$ %.2f<br>" +
+                    "Base ICMS ST: R$ %.2f<br>" +
+                    "ICMS ST: R$ %.2f<br>" +
+                    "Total com Imposto: R$ %.2f<br>" +
+                    "ST Produto: %.2f%%<br>" +
+                    "ST Sistema: %.2f%%</html>",
+                    pRedBC, vICMSproprio, baseICMSST, vICMSST, vTotalComImposto, pSTprod, pSTsist
+                );
+                produto.setExplicacao(tooltipText);
+                break;
         
 
         
