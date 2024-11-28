@@ -258,7 +258,11 @@ public class ProductViewer extends JFrame {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
-        textArea.setBorder(BorderFactory.createEmptyBorder(5,20, 5, 5));
+        // Define uma borda rebaixada com margens internas
+        textArea.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLoweredBevelBorder(), // Borda rebaixada
+            BorderFactory.createEmptyBorder(2, 2, 2, 2) // Margens internas
+        ));
         textArea.setBackground(new Color(255, 255, 255));
         //textArea.setPreferredSize(new Dimension(50, 25));
         return textArea;
