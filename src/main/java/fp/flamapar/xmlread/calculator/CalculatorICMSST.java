@@ -44,7 +44,6 @@ public static String tipoCalc(Double mva , Double picms , Double picmsst , Doubl
     
 public static void processarCalculo(String caso , ProductDetails produto) {
     //Var do Objeto
-    Double vOperacao;
     Double vProduto = produto.getPrecoUnitario();
     Double vFrete =  produto.getVFrete()/produto.getQCom();
     Double pRedBC = produto.getPRedBC();
