@@ -82,6 +82,8 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 // Tooltip para SEM_ST
                 tooltipText = String.format(
                     "<html>" +
+                    "<b>Produto:</b> %s <br>" +       
+                    "<hr>" +        
                     "<b>Modo:</b> Sem Recolhimento Atual de ST<br>" +
                     "<hr>" + // Linha divisória
                     "<b>Detalhamento do Cálculo:</b><br>" +
@@ -96,7 +98,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                     "<hr>" + // Linha divisória
                     "<b>Observação:</b> ICMS Próprio e ICMS ST não aplicáveis neste caso.<br>" +
                     "</html>",
-                    vProduto, vFrete, (vProduto + vFrete),
+                    produto.toString(),vProduto, vFrete, (vProduto + vFrete),
                     pIPI * 100, vProduto, vFrete, vIPI,
                     (vProduto + vFrete), vIPI, vTotalComImposto
                 );
@@ -129,6 +131,8 @@ public static void processarCalculo(String caso , ProductDetails produto) {
             // Tooltip para ESTADUAL_SEM_REDUCAO
             tooltipText = String.format(
                 "<html>" +
+                "<b>Produto:</b> %s <br>" +       
+                "<hr>" +                         
                 "<b>Modo:</b> Estadual sem Redução<br>" +
                 "<hr>" +
                 "<b>Detalhamento do Cálculo:</b><br>" +
@@ -151,7 +155,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / %.2f * 100 = %.2f%%<br>" +
                 "<hr>" +
                 "</html>",
-                vProduto, vFrete, pICMS, vICMSproprio,
+                produto.toString(),vProduto, vFrete, pICMS, vICMSproprio,
                 vProduto, vIPI, vFrete, pMVA, baseICMSST,
                 baseICMSST, pICMS, vICMSproprio, vICMSST,
                 vProduto, vIPI, vICMSST, vFrete, vTotalComImposto,
@@ -187,6 +191,8 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 // Tooltip para ESTADUAL_COM_REDUCAO
                 tooltipText = String.format(
                     "<html>" +
+                    "<b>Produto:</b> %s <br>" +       
+                    "<hr>" +                              
                     "<b>Modo:</b> Estadual com Redução<br>" +
                     "<hr>" +
                     "<b>Detalhamento do Cálculo:</b><br>" +
@@ -209,7 +215,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                     "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / %.2f * 100 = %.2f%%<br>" +
                     "<hr>" +
                     "</html>",
-                    vProduto, vFrete, pICMS, pRedBC, vICMSproprio,
+                    produto.toString(),vProduto, vFrete, pICMS, pRedBC, vICMSproprio,
                     vProduto, vIPI, vFrete, pMVA, pRedBCST, baseICMSST,
                     baseICMSST, pICMS, vICMSproprio, vICMSST,
                     vProduto, vIPI, vICMSST, vFrete, vTotalComImposto,
@@ -248,6 +254,8 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 //Tooltip para ESTADUAL_SEM_REDUCAO
                 tooltipText = String.format(
                     "<html>" +
+                    "<b>Produto:</b> %s <br>" +       
+                    "<hr>" +                              
                     "<b>Modo:</b> Interestadual sem Redução<br>" +
                     "<hr>" +
                     "<b>Detalhamento do Cálculo:</b><br>" +
@@ -270,7 +278,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                     "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / %.2f * 100 = %.2f%%<br>" +
                     "<hr>" +
                     "</html>",
-                    vProduto, vFrete, pICMS, vICMSproprio,
+                    produto.toString(),vProduto, vFrete, pICMS, vICMSproprio,
                     vProduto, vIPI, vFrete, pMVA, vProduto, vIPI, baseICMSST,
                     baseICMSST, pICMSST, vICMSproprio, vICMSST,
                     vProduto, vIPI, vICMSST, vFrete, vTotalComImposto,
@@ -309,6 +317,8 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                 // Tooltip para INTERESTADUAL_COM_REDUCAO
                 tooltipText = String.format(
                     "<html>" +
+                    "<b>Produto:</b> %s <br>" +       
+                    "<hr>" +                              
                     "<b>Modo:</b> Interestadual com Redução<br>" +
                     "<hr>" +
                     "<b>Detalhamento do Cálculo:</b><br>" +
@@ -334,7 +344,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
                     "&nbsp;&nbsp;&nbsp;Substituindo: %.2f / %.2f * 100 = %.2f%%<br>" +
                     "<hr>" +
                     "</html>",
-                    vProduto, vFrete, pRedBC, baseICMS,
+                    produto.toString(),vProduto, vFrete, pRedBC, baseICMS,
                     baseICMS, pICMS, vICMSproprio,
                     vProduto, vIPI, vFrete, pMVA, pRedBCST, baseICMSST,
                     baseICMSST, pICMSST, vICMSproprio, vICMSST,

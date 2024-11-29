@@ -32,29 +32,30 @@ public class ProductViewer extends JFrame {
             }
         });
         
-            productList.setCellRenderer(new DefaultListCellRenderer() {
-                @Override
-                public Component getListCellRendererComponent(
-                        JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        productList.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
-                    // Usa o renderizador padrão
-                    JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                // Usa o renderizador padrão
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-                    // Verifica se o valor é do tipo ProductDetails
-                    if (value instanceof ProductDetails product) {
-                        // Verifica a condição para Substituição Tributária
-                        if (CFOPChecker.isSubstituicaoTributaria(product.getCfop())) {
-                            renderer.setForeground(Color.DARK_GRAY.darker()); // Texto Cinza para ST
-                        } else {
-                            renderer.setForeground(Color.DARK_GRAY.brighter()); // Texto Cinza Claro
-                            //renderer.setForeground(isSelected ? Color.GRAY : Color.GRAY); // Texto padrão
-                        }
+                // Verifica se o valor é do tipo ProductDetails
+                if (value instanceof ProductDetails product) {
+                    // Verifica a condição para Substituição Tributária
+                    if (CFOPChecker.isSubstituicaoTributaria(product.getCfop())) {
+                        renderer.setForeground(Color.DARK_GRAY.darker()); // Texto Cinza para ST
+                    } else {
+                        renderer.setForeground(Color.DARK_GRAY.brighter()); // Texto Cinza Claro
+                        //renderer.setForeground(isSelected ? Color.GRAY : Color.GRAY); // Texto padrão
                     }
-
-                    // O fundo será gerenciado automaticamente pelo renderizador padrão
-                    return renderer;
                 }
-            });
+
+                // O fundo será gerenciado automaticamente pelo renderizador padrão
+                return renderer;
+            }
+        });
+        
         // Configurações da janela principal
         setTitle("Visualizador de Produtos");
         setSize(800, 500);
@@ -310,12 +311,15 @@ public class ProductViewer extends JFrame {
             textTotalProd.setText(df.format(produto.getPrecoUnitario() * produto.getQCom()));
             textTotaldaNota.setText(df.format(produto.getTotalComImpostos()* produto.getQCom()));
             textvFrete.setText(df.format(produto.getVFrete()));
+            textBaseicmsst.setText(df.format(produto.getBaseicmsst()));
             
             df.applyPattern("##0.00");
-            textpIPI.setText(df.format(produto.getPIPI()));
-            textStsist.setText(df.format(produto.getStsist()));          
-            textSt.setText(df.format(produto.getSt()));
-            textBaseicmsst.setText(df.format(produto.getBaseicmsst()));
+            textpIPI.setText(String.valueOf(df.format(produto.getPIPI()) + " %"));
+            textStsist.setText(String.valueOf(df.format(produto.getStsist()) + " %"));          
+            textSt.setText(String.valueOf(df.format(produto.getSt()) + " %"));
+            textMva.setText(String.valueOf(df.format(produto.getMva())));
+            
+            
             
             textCodigo.setText(produto.getCodigo());
             textCodigoEAN.setText(produto.getCodigoEAN());
@@ -323,10 +327,7 @@ public class ProductViewer extends JFrame {
             textCsta.setText(produto.getCsta());
             textCstb.setText(produto.getCstb());
             textCfop.setText(produto.getCfop());
-            textMva.setText(String.valueOf(produto.getMva()));
 
-            
-            
             textUcom.setText(String.valueOf(produto.getQCom() + " x "+ produto.getUCom()));
             
             boolean hasST = CFOPChecker.isSubstituicaoTributaria(produto.getCfop());
