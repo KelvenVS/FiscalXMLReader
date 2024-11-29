@@ -1,6 +1,7 @@
 package fp.flamapar.xmlread;
 
 import fp.flamapar.xmlread.model.ProductDetails;
+import fp.flamapar.xmlread.calculator.CFOPChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,29 @@ public class ProductViewer extends JFrame {
             }
         });
         
+            productList.setCellRenderer(new DefaultListCellRenderer() {
+                @Override
+                public Component getListCellRendererComponent(
+                        JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+
+                    // Usa o renderizador padrão
+                    JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                    // Verifica se o valor é do tipo ProductDetails
+                    if (value instanceof ProductDetails product) {
+                        // Verifica a condição para Substituição Tributária
+                        if (CFOPChecker.isSubstituicaoTributaria(product.getCfop())) {
+                            renderer.setForeground(Color.DARK_GRAY.darker()); // Texto Cinza para ST
+                        } else {
+                            renderer.setForeground(Color.DARK_GRAY.brighter()); // Texto Cinza Claro
+                            //renderer.setForeground(isSelected ? Color.GRAY : Color.GRAY); // Texto padrão
+                        }
+                    }
+
+                    // O fundo será gerenciado automaticamente pelo renderizador padrão
+                    return renderer;
+                }
+            });
         // Configurações da janela principal
         setTitle("Visualizador de Produtos");
         setSize(800, 500);
