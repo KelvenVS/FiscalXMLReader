@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>fp.flamapar</groupId>
+    <groupId>br.kelvenserejo</groupId>
     <artifactId>xmlread</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <exec.mainClass>fp.flamapar.xmlread.Xmlread</exec.mainClass>
+        <exec.mainClass>br.kelvenserejo.xmlread.ProductViewer</exec.mainClass>
     </properties>
     <dependencies>
         <!-- Dependência para JAXB -->
@@ -57,7 +57,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>fp.flamapar.xmlread.ProductViewer</mainClass>
+                            <mainClass>br.kelvenserejo.xmlread.ProductViewer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
