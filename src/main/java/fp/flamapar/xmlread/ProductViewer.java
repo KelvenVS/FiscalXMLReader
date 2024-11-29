@@ -330,12 +330,12 @@ public class ProductViewer extends JFrame {
             textUcom.setText(String.valueOf(produto.getQCom() + " x "+ produto.getUCom()));
             
             boolean hasST = CFOPChecker.isSubstituicaoTributaria(produto.getCfop());
-            updateTextAreaBorder(textStsist, hasST);
-            updateTextAreaBorder(textPrecoUnit, hasST);
-            updateTextAreaBorder(textpIPI, hasST);
-            updateTextAreaBorder(textvFrete, hasST);
-            updateTextAreaBorder(textCfop, hasST);
-            updateTextAreaBorder(textCstb, hasST);
+            updateLabelTextColor(labelStsist, hasST);
+            updateLabelTextColor(labelPrecoUnit, hasST);
+            updateLabelTextColor(labelpIPI, hasST);
+            updateLabelTextColor(labelvFrete, hasST);
+            updateLabelTextColor(labelCfop, hasST);
+            updateLabelTextColor(labelCstb, hasST);
 
         }
     }
@@ -428,6 +428,9 @@ public class ProductViewer extends JFrame {
         ));
     }
     
+    private void updateLabelTextColor(JLabel label, boolean condition) {
+        label.setForeground(condition ? Color.RED : Color.BLACK);
+    }
     public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> {
         ProductViewer viewer = new ProductViewer();
