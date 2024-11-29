@@ -9,7 +9,7 @@
 
 <p align="center">
 
-  • [Introdução](#introdução) • [Descrição](#descrição) • [Funcionalidades](#funcionalidades) • [Estrutura do Projeto](#estrutura-do-projeto) • [Dependências](#dependências) • [Instalação](#instalação) • [Como Usar](#como-usar) • [Exemplo de Uso](#exemplo-de-uso) • [Sobre o Autor](#Sobre o Autor) • [Licença](#licença)
+  • [Introdução](#introdução) • [Descrição](#descrição) • [Funcionalidades](#funcionalidades) • [Estrutura do Projeto](#estrutura-do-projeto) • [Dependências](#dependências) • [Instalação](#instalação) • [Como Usar](#como-usar) • [Exemplo de Uso](#exemplo-de-uso) • [Sobre o Autor](#Sobre-o-Autor) • [Licença](#licença)
 
 </p>
 
@@ -139,4 +139,4 @@ Após executar o programa:
 
 ## Licença
 
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](./LICENSE.md) para mais detalhes.
