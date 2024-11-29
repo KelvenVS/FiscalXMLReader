@@ -196,6 +196,7 @@ public class ProductViewer extends JFrame {
         //Linha 5
         linha = linha + 1;
         labelStsist = new JLabel("% ST Sistema: ");
+        
         addComponent(mainPanel, labelStsist, 0, linha);
         
         textStsist = createTextArea();
@@ -312,7 +313,7 @@ public class ProductViewer extends JFrame {
             
             df.applyPattern("##0.00");
             textpIPI.setText(df.format(produto.getPIPI()));
-            textStsist.setText(df.format(produto.getStsist()));
+            textStsist.setText(df.format(produto.getStsist()));          
             textSt.setText(df.format(produto.getSt()));
             textBaseicmsst.setText(df.format(produto.getBaseicmsst()));
             
@@ -327,7 +328,14 @@ public class ProductViewer extends JFrame {
             
             
             textUcom.setText(String.valueOf(produto.getQCom() + " x "+ produto.getUCom()));
-            //System.out.println(produto.getUCom());
+            
+            boolean hasST = CFOPChecker.isSubstituicaoTributaria(produto.getCfop());
+            updateTextAreaBorder(textStsist, hasST);
+            updateTextAreaBorder(textPrecoUnit, hasST);
+            updateTextAreaBorder(textpIPI, hasST);
+            updateTextAreaBorder(textvFrete, hasST);
+            updateTextAreaBorder(textCfop, hasST);
+            updateTextAreaBorder(textCstb, hasST);
 
         }
     }
@@ -408,8 +416,18 @@ public class ProductViewer extends JFrame {
         popup.add(scrollPane);
         popup.setVisible(true);
     }
-  
-
+    
+    private void updateTextAreaBorder(JTextArea textArea, boolean condition) {
+        Color borderColor = condition ? Color.RED.brighter() : Color.DARK_GRAY; // Define a cor com base no booleano
+        textArea.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(borderColor, 2), // Borda colorida externa
+            BorderFactory.createCompoundBorder(
+                BorderFactory.createLoweredBevelBorder(), // Borda rebaixada interna
+                BorderFactory.createEmptyBorder(2, 2, 2, 2) // Margens internas
+            )
+        ));
+    }
+    
     public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> {
         ProductViewer viewer = new ProductViewer();
