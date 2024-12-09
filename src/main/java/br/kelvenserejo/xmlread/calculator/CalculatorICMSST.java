@@ -46,6 +46,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
     //Var do Objeto
     Double vProduto = produto.getPrecoUnitario();
     Double vFrete =  produto.getVFrete()/produto.getQCom();
+    produto.setVFrete(vFrete);
     Double pRedBC = produto.getPRedBC();
     Double pRedBCST = produto.getPRedBCST();
     Double pMVA = produto.getMva();
@@ -67,7 +68,7 @@ public static void processarCalculo(String caso , ProductDetails produto) {
     Double pSTprod;
     Double vICMSdestino;
     Double baseICMS;
-    
+   
     switch (caso) {
         case "SEM_ST":
                 vTotalComImposto = (vProduto + vIPI + vFrete);
