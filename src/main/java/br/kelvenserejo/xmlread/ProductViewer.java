@@ -325,9 +325,6 @@ public class ProductViewer extends JFrame {
             textCodigoEAN.setText(produto.getCodigoEAN());
             textNCM.setText(produto.getNcm());
             textCsta.setText(produto.getCsta());
-            textCstb.setText(produto.getCstb());
-            textCfop.setText(produto.getCfop());
-
             textUcom.setText(String.valueOf(produto.getQCom() + " x "+ produto.getUCom()));
             
             boolean hasST = CFOPChecker.isSubstituicaoTributaria(produto.getCfop());
@@ -337,6 +334,10 @@ public class ProductViewer extends JFrame {
             updateLabelTextColor(labelvFrete, hasST);
             updateLabelTextColor(labelCfop, hasST);
             updateLabelTextColor(labelCstb, hasST);
+            
+            //Define transformação do CST B e CFOP
+            textCfop.setText(produto.getCfop() + (hasST ? " --> 5405" : " --> 5102"));
+            textCstb.setText(produto.getCstb() + (hasST ? " --> 60" : " --> 00"));
 
         }
     }
